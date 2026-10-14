@@ -1,0 +1,105 @@
+---
+interface Props {
+  code?: string
+  language?: string
+  filename?: string
+  highlights?: number[]
+  meta?: string
+  class?: string
+}
+const { code = "", language = null, filename = null, class: className = null } = Astro.props
+
+const headerText = filename ?? language ?? ""
+const contentClass = className ?? ""
+---
+
+<div class="pre-container">
+  <div class="header">
+    <div class="left">
+      <span>{headerText}</span>
+    </div>
+    <div class="right">
+      <button data-copy-code={code}>
+        <i class="fa-solid fa-clipboard"></i>
+      </button>
+    </div>
+  </div>
+  <div class={`content ${contentClass}`}>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .pre-container {
+    margin: var(--padding-y) 0;
+    border-radius: 0.5rem;
+    overflow: visible;
+    background-color: var(--bg-light);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--bg-light);
+    color: var(--text-light);
+    font-size: 0.875rem;
+  }
+
+  .header .left {
+    font-size: var(--title-size);
+  }
+
+  .header .right button {
+    background: none;
+    border: none;
+    padding: 2px;
+    border-radius: 4px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .header .right button:hover {
+    background-color: var(--bg-decoration);
+  }
+
+  .content {
+    padding: 0 var(--padding-y);
+    white-space: pre;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content pre {
+    display: block;
+    min-width: max-content;
+    white-space: pre;
+    overflow: auto;
+  }
+
+  .content code {
+    padding: 0.75rem 1rem;
+    display: block;
+    min-width: max-content;
+    white-space: pre;
+    overflow: auto;
+  }
+</style>
+
+<script>
+  document.querySelectorAll("[data-copy-code]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const text = btn.getAttribute("data-copy-code") ?? ""
+      const icon = btn.querySelector("i")
+      if (navigator.clipboard && text && icon) {
+        navigator.clipboard.writeText(text)
+        icon.className = "fa-solid fa-clipboard-check"
+        setTimeout(() => {
+          icon.className = "fa-solid fa-clipboard"
+        }, 500)
+      }
+    })
+  })
+</script>

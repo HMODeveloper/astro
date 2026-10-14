@@ -1,0 +1,17 @@
+---
+interface Props {
+  src: string
+  alt?: string
+  width?: string | number
+  height?: string | number
+}
+const { src, alt = "", width, height } = Astro.props
+---
+
+<img src={src} alt={alt} width={width} height={height} class="img" />
+
+<style>
+  .img {
+    margin: var(--padding-y) 0;
+  }
+</style>

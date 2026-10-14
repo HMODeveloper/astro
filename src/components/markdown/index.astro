@@ -1,0 +1,56 @@
+---
+import { render } from "astro:content"
+import type { CollectionEntry } from "astro:content"
+import H1 from "./H1.astro"
+import H2 from "./H2.astro"
+import H3 from "./H3.astro"
+import H4 from "./H4.astro"
+import H5 from "./H5.astro"
+import H6 from "./H6.astro"
+import A from "./A.astro"
+import Blockquote from "./Blockquote.astro"
+import Code from "./Code.astro"
+import Img from "./Img.astro"
+import Ol from "./Ol.astro"
+import P from "./P.astro"
+import Pre from "./Pre.astro"
+import Table from "./Table.astro"
+import Tbody from "./Tbody.astro"
+import Td from "./Td.astro"
+import Th from "./Th.astro"
+import Thead from "./Thead.astro"
+import Tr from "./Tr.astro"
+import Ul from "./Ul.astro"
+
+interface Props {
+  entry: CollectionEntry<"dynamic"> | CollectionEntry<"server">
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Content
+  components={{
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    h5: H5,
+    h6: H6,
+    a: A,
+    blockquote: Blockquote,
+    code: Code,
+    img: Img,
+    ol: Ol,
+    p: P,
+    pre: Pre,
+    table: Table,
+    tbody: Tbody,
+    td: Td,
+    th: Th,
+    thead: Thead,
+    tr: Tr,
+    ul: Ul,
+  }}
+/>

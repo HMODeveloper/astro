@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string
+  target?: string
+}
+const { href, target = "_blank" } = Astro.props
+---
+
+<a href={href} target={target}>
+  <slot />
+</a>
+
+<style>
+  a {
+    text-decoration: none;
+    color: var(--text-focus);
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

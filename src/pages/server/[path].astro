@@ -1,8 +1,13 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import { getCollection } from "astro:content"
 
 export async function getStaticPaths() {
-  return []
+  const all = await getCollection("server")
+  return all.map((entry) => ({
+    params: { path: entry.id },
+    props: { entry },
+  }))
 }
 ---
 

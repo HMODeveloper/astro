@@ -1,0 +1,36 @@
+---
+interface Props {
+  id?: string
+}
+const { id } = Astro.props
+---
+
+<h2 id={id}>
+  <slot />
+</h2>
+
+<style>
+  h2 {
+    position: relative;
+    color: var(--text-light);
+    margin: var(--padding-y) 0;
+  }
+  h2::before {
+    content: "#";
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateX(calc(-100% - 0.5rem));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  h2:hover::before {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    h2::before {
+      display: none;
+    }
+  }
+</style>
