@@ -1,0 +1,67 @@
+---
+import Background from "@/components/common/Background.astro"
+import Navbar from "@/components/common/Navbar/index.astro"
+import "@/styles/main.css"
+
+interface Props {
+  title?: string
+  description?: string
+}
+const {
+  title = "HMO-Minecraft岳麓幻境社",
+  description = "这里是湖南大学校级社团Minecraft岳麓幻境社, 欢迎湖南高校学子共建的Minecraft高校圈! 本社下辖5大常驻服务器以及轮换整合包服务器, 满足各类高校Minecraft玩家的不同需要. 更有HUC高校起床战争系列赛, 百人社会模拟实验, 百团大战, 迎新茶话会等各类线上线下活动等你参与!",
+} = Astro.props
+const pathname = Astro.url.pathname
+---
+
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="app">
+      <Background />
+      <div class="container">
+        <Navbar pathname={pathname} />
+        <div class="content">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  .app {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    color: var(--text);
+  }
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+  }
+  .content {
+    flex: 1;
+    position: relative;
+    width: var(--max-width);
+    padding-top: var(--padding-y);
+  }
+</style>

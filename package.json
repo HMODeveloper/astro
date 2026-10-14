@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.14",
-    "astro": "^7.3.8"
+    "astro": "^7.3.8",
+    "modern-css-reset": "^1.4.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",

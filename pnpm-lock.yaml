@@ -14,6 +14,9 @@ importers:
       astro:
         specifier: ^7.3.8
         version: 7.3.8(@vercel/functions@3.9.11)(yaml@2.9.1)
+      modern-css-reset:
+        specifier: ^1.4.0
+        version: 1.4.0
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^9.5.1
@@ -2322,6 +2325,9 @@ packages:
 
   mlly@1.8.2:
     resolution: {integrity: sha512-d+ObxMQFmbt10sretNDytwt85VrbkhhUA/JBGm1MPaWJ65Cl4wOgLaB1NYvJSZ0Ef03MMEU/0xpPMXUIQ29UfA==}
+
+  modern-css-reset@1.4.0:
+    resolution: {integrity: sha512-0crZmSFmrxkI7159rvQWjpDhy0u4+Awg/iOycJdlVn0RSeft/a+6BrQHR3IqvmdK25sqt0o6Z5Ap7cWgUee2rw==}
 
   module-replacements@3.4.0:
     resolution: {integrity: sha512-NKBNFM/uAUvSs+LOYfSly4EwrC9bgMoFuEnqNNjcDb910W+5IgS2KMB2ERLm5YZZm7R187jx1dMA9pOPvqbSbw==}
@@ -5663,6 +5669,8 @@ snapshots:
       pathe: 2.0.3
       pkg-types: 1.3.1
       ufo: 1.6.4
+
+  modern-css-reset@1.4.0: {}
 
   module-replacements@3.4.0: {}
 

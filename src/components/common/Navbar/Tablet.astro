@@ -1,0 +1,153 @@
+---
+import type { NavbarItem } from "./index.astro"
+interface Props {
+  items: NavbarItem[]
+}
+const { items } = Astro.props
+---
+
+<div class="navbar">
+  <div class="left">
+    <img src="/images/title.webp" alt="HMO" />
+  </div>
+  <details class="right">
+    <summary class="toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </summary>
+    <div class="body">
+      {
+        items.map((item) => (
+          <a href={item.to} class={"item" + (item.active ? " active" : "")}>
+            <div class="label-en">{item.labelEN}</div>
+            <div class="label">{item.label}</div>
+          </a>
+        ))
+      }
+    </div>
+  </details>
+</div>
+
+<style>
+  .navbar {
+    position: relative;
+    width: var(--max-width);
+    padding: 0 var(--padding-x);
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .left {
+    height: 100%;
+  }
+  .left img {
+    height: 100%;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .right > summary {
+    list-style: none;
+    cursor: pointer;
+    display: block;
+  }
+  .right > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toggle {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+  }
+  .toggle .bar {
+    display: block;
+    position: absolute;
+    width: 70%;
+    height: 2px;
+    background-color: var(--text);
+    left: 15%;
+    transform: translateY(-50%);
+    transition: all 0.2s ease;
+  }
+  .toggle .bar:nth-child(1) {
+    top: 25%;
+  }
+  .toggle .bar:nth-child(2) {
+    top: 50%;
+  }
+  .toggle .bar:nth-child(3) {
+    top: 75%;
+  }
+
+  details[open] .toggle .bar:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  details[open] .toggle .bar:nth-child(2) {
+    transform: translateX(75%);
+    opacity: 0;
+  }
+  details[open] .toggle .bar:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .body {
+    position: absolute;
+    width: 100%;
+    padding: 4px var(--padding-x);
+    left: 0;
+    top: 100%;
+    transform: translateY(100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background-color: var(--nav-cover);
+    z-index: 100;
+    transition: all 0.5s ease;
+  }
+
+  details:not([open]) .body {
+    pointer-events: none;
+    opacity: 0;
+  }
+  details[open] .body {
+    pointer-events: auto;
+    top: 3rem;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .item {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 4px;
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .item::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(50%);
+    z-index: 200;
+    background-color: var(--text);
+  }
+  .item.active {
+    color: var(--text-focus);
+  }
+</style>
