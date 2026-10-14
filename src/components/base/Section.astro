@@ -9,18 +9,18 @@ if (card) classes.push("card")
 if (classname) classes.push(classname)
 ---
 
-<div class={classes.join(" ")}>
+<section class:list={classes} data-section>
   {
     Astro.slots.has("title") && (
       <div class="title">
-        <span>
+        <span data-scroll>
           <slot name="title" />
         </span>
       </div>
     )
   }
   <slot />
-</div>
+</section>
 
 <style>
   .section {
@@ -43,7 +43,7 @@ if (classname) classes.push(classname)
     border-radius: 2px;
     background-color: var(--text);
   }
-  .title > span {
+  .title > span[data-scroll] {
     width: 100%;
     margin-bottom: 1rem;
     color: var(--text-light);
@@ -53,9 +53,10 @@ if (classname) classes.push(classname)
     transition: all 0.3s ease;
     display: block;
   }
-  /* 阶段 五: 加 .scrolled 配套 CSS
-   * .section .title > span.scrolled { transform: translateX(0); opacity: 1; }
-   */
+  .title > span[data-scroll].scrolled {
+    transform: translateX(0);
+    opacity: 1;
+  }
 
   @media (min-width: 768px) {
     .section.card:hover {
