@@ -6,27 +6,27 @@ interface Props {
 const { items } = Astro.props
 ---
 
-<div class="navbar">
+<div class="navbar" data-responsive-tablet>
   <div class="left">
     <img src="/images/title.webp" alt="HMO" />
   </div>
-  <details class="right">
-    <summary class="toggle">
+  <div class="right">
+    <div class="toggle" data-nav-toggle>
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
-    </summary>
-    <div class="body">
-      {
-        items.map((item) => (
-          <a href={item.to} class={"item" + (item.active ? " active" : "")}>
-            <div class="label-en">{item.labelEN}</div>
-            <div class="label">{item.label}</div>
-          </a>
-        ))
-      }
     </div>
-  </details>
+  </div>
+  <div class="body" data-nav-body>
+    {
+      items.map((item) => (
+        <a href={item.to} class={"item" + (item.active ? " active" : "")}>
+          <div class="label-en">{item.labelEN}</div>
+          <div class="label">{item.label}</div>
+        </a>
+      ))
+    }
+  </div>
 </div>
 
 <style>
@@ -49,20 +49,13 @@ const { items } = Astro.props
     align-items: center;
     justify-content: space-evenly;
   }
-  .right > summary {
-    list-style: none;
-    cursor: pointer;
-    display: block;
-  }
-  .right > summary::-webkit-details-marker {
-    display: none;
-  }
 
   .toggle {
     position: relative;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 4px;
+    cursor: pointer;
   }
   .toggle .bar {
     display: block;
@@ -84,15 +77,15 @@ const { items } = Astro.props
     top: 75%;
   }
 
-  details[open] .toggle .bar:nth-child(1) {
+  .toggle.active .bar:nth-child(1) {
     top: 50%;
     transform: translateY(-50%) rotate(45deg);
   }
-  details[open] .toggle .bar:nth-child(2) {
+  .toggle.active .bar:nth-child(2) {
     transform: translateX(75%);
     opacity: 0;
   }
-  details[open] .toggle .bar:nth-child(3) {
+  .toggle.active .bar:nth-child(3) {
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
   }
@@ -114,11 +107,11 @@ const { items } = Astro.props
     transition: all 0.5s ease;
   }
 
-  details:not([open]) .body {
+  .body:not(.shown) {
     pointer-events: none;
     opacity: 0;
   }
-  details[open] .body {
+  .body.shown {
     pointer-events: auto;
     top: 3rem;
     transform: translateY(0);
@@ -151,3 +144,13 @@ const { items } = Astro.props
     color: var(--text-focus);
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-nav-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active")
+      const body = btn.closest<HTMLElement>(".navbar")?.querySelector<HTMLElement>("[data-nav-body]")
+      body?.classList.toggle("shown")
+    })
+  })
+</script>

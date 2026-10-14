@@ -1,4 +1,5 @@
 @import "modern-css-reset/dist/reset.min.css";
+@import "responsive.css";
 
 :root {
   /* color */

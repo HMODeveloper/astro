@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+  [data-responsive-desktop] {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  [data-responsive-tablet] {
+    display: none !important;
+  }
+}

@@ -1,5 +1,4 @@
 ---
-import Responsive from "@/components/base/Responsive.astro"
 import Desktop from "./Desktop.astro"
 import Tablet from "./Tablet.astro"
 
@@ -24,10 +23,8 @@ const items: NavbarItem[] = [
 ---
 
 <div class="navbar-container">
-  <Responsive>
-    <Desktop slot="desktop" items={items} />
-    <Tablet slot="tablet" items={items} />
-  </Responsive>
+  <Desktop items={items} />
+  <Tablet items={items} />
 </div>
 
 <style>

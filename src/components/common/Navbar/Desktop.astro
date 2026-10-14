@@ -6,14 +6,19 @@ interface Props {
 const { items } = Astro.props
 ---
 
-<div class="navbar">
+<div class="navbar" data-responsive-desktop>
   <div class="left">
     <img src="/images/title.webp" alt="HMO" />
   </div>
   <div class="right">
     {
       items.map((item) => (
-        <a href={item.to} class={"item" + (item.active ? " active" : "")}>
+        <a
+          href={item.to}
+          class={"item" + (item.active ? " active" : "")}
+          data-nav-item
+          data-nav-active={item.active ? "true" : undefined}
+        >
           <div class="label-en">{item.labelEN}</div>
           <div class="label">{item.label}</div>
         </a>
@@ -69,13 +74,26 @@ const { items } = Astro.props
     background-color: var(--text-focus);
     transition: all 0.1s ease;
   }
-  .item:hover,
   .item.active {
     color: var(--text-focus);
   }
-  .item:hover::after,
   .item.active::after {
     width: 100%;
     left: 0;
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("a[data-nav-item]").forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      document
+        .querySelectorAll<HTMLAnchorElement>("a[data-nav-item]")
+        .forEach((el) => el.classList.toggle("active", el === item))
+    })
+    item.addEventListener("mouseleave", () => {
+      document
+        .querySelectorAll<HTMLAnchorElement>("a[data-nav-item]")
+        .forEach((el) => el.classList.toggle("active", el.getAttribute("data-nav-active") === "true"))
+    })
+  })
+</script>
