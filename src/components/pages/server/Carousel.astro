@@ -1,0 +1,156 @@
+---
+import { getCollection } from "astro:content"
+
+const coverEntry = (await getCollection("cover"))[0]
+const coverList = coverEntry?.data.list ?? []
+const serverEntries = await getCollection("server")
+function titleOf(name: string) {
+  return serverEntries.find(s => s.data.name === name)?.data.title ?? ""
+}
+
+const covers = coverList.map(item => ({
+  url: item.url,
+  title: titleOf(item.server),
+  description: item.description,
+}))
+const coversJson = JSON.stringify(covers)
+---
+
+<div
+  class="cover-carousel"
+  data-carousel-cover-carousel
+  data-covers={coversJson}
+>
+  <div class="img-stack" data-carousel-pause>
+    {
+      covers.map((c, i) => (
+        <div
+          class="img"
+          data-carousel-item
+          data-carousel-index={i}
+          data-active={i === 0 ? "" : undefined}
+          style={`background-image: url(${c.url});`}
+        >
+          <div class="img-content">
+            {c.title} - {c.description}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="thumb-strip" data-carousel-pause>
+    {
+      [0, 1, 2, 3, 4].map(k => (
+        <div
+          class="thumb"
+          data-carousel-click
+          data-carousel-index={k}
+          data-active={k === 2 ? "" : undefined}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .cover-carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .img-stack {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .img {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+  .img[data-active] {
+    opacity: 1;
+  }
+
+  .img-content {
+    width: 100%;
+    background: var(--bg-cover);
+    color: white;
+    padding: var(--padding-y);
+    box-sizing: border-box;
+    font-size: var(--title-size);
+    font-weight: bold;
+  }
+
+  .thumb-strip {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .thumb {
+    aspect-ratio: 16 / 9;
+    background-image: none;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: multiply;
+    cursor: pointer;
+    transition: background-image 0.5s ease;
+  }
+  .thumb[data-active] {
+    background-color: transparent;
+  }
+</style>
+
+<script>
+  import { setupCarousel } from "@/scripts/carousel"
+
+  const root = document.querySelector<HTMLElement>("[data-carousel-cover-carousel]")!
+  const covers = JSON.parse(root.dataset.covers!) as {
+    url: string
+    title: string
+    description: string
+  }[]
+  const thumbs = Array.from(
+    root.querySelectorAll<HTMLElement>(".thumb"),
+  )
+
+  function updateStrip(idx: number) {
+    const total = covers.length
+    if (total === 0)
+      return
+    for (let k = 0; k < 5; k++) {
+      const off = k - 2
+      const coverIdx = ((idx + off) % total + total) % total
+      thumbs[k].style.backgroundImage = `url(${covers[coverIdx].url})`
+      thumbs[k].setAttribute("data-carousel-index", String(coverIdx))
+      if (off === 0)
+        thumbs[k].setAttribute("data-active", "")
+      else
+        thumbs[k].removeAttribute("data-active")
+    }
+  }
+
+  const initialActive = root.querySelector("[data-active][data-carousel-item]")
+  const initialIdx = initialActive
+    ? Number(initialActive.getAttribute("data-carousel-index"))
+    : 0
+  updateStrip(initialIdx)
+
+  setupCarousel("[data-carousel-cover-carousel]", {
+    interval: 3000,
+    onChange: idx => updateStrip(idx),
+  })
+</script>

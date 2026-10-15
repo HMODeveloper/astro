@@ -1,0 +1,207 @@
+---
+import { getCollection } from "astro:content"
+import Section from "@/components/base/Section.astro"
+import { od } from "@/utils/ohday"
+
+interface ServerCard {
+  title: string
+  intro: string
+  description: string
+  start: string
+  end: string | null
+  cover: string
+  path: string
+}
+
+const entries = await getCollection("server")
+const items: ServerCard[] = entries
+  .map(entry => ({
+    title: entry.data.title,
+    intro: entry.data.intro,
+    description: entry.data.description,
+    start: entry.data.start,
+    end: entry.data.end ?? null,
+    cover: entry.data.cover,
+    path: entry.id,
+  }))
+  .sort((a, b) => {
+    const aClosed = a.end != null
+    const bClosed = b.end != null
+    if (aClosed === bClosed)
+      return 0
+    return aClosed ? 1 : -1
+  })
+
+function getServerDays(dateStr: string, asOf?: string): number {
+  if (!dateStr)
+    return 0
+  const from = od(dateStr).cs("d")
+  const ref = (asOf !== undefined ? od(asOf) : od()).cs("d")
+  return ref.diff(from, "d")
+}
+
+function getServerDateMsg(item: ServerCard): string {
+  if (!item.start)
+    return ""
+  if (item.end) {
+    return `(开服 ${getServerDays(item.start, item.end)} 天, 已完结 ${getServerDays(item.end)} 天)`
+  }
+  return `(已开服 ${getServerDays(item.start)} 天)`
+}
+---
+
+<Section classname="list-section">
+  <Fragment slot="title">服务器列表</Fragment>
+  <div class="list">
+    {
+      items.map(item => (
+        <div class="item-container" data-section>
+          <a
+            class="item"
+            data-scroll
+            href={`/server/${item.path}`}
+          >
+            <img
+              class="cover"
+              src={item.cover}
+              alt={item.title}
+              loading="lazy"
+            />
+            <div class="content">
+              <div class="item-title">
+                <span class="title-text">{item.title}</span>
+                {item.end && <span class="closed-pill">已完结</span>}
+              </div>
+              <div class="intro">{item.description || item.intro}</div>
+              <div class="date">
+                <div class="date-line">
+                  开服日期: {item.start || "--已不可考--"} {getServerDateMsg(item)}
+                </div>
+                {item.end && (
+                  <div class="date-line">完结日期: {item.end}</div>
+                )}
+              </div>
+            </div>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .list-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding-y);
+    margin: var(--padding-y) 0;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .item-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: var(--padding-y) var(--padding-y);
+  }
+
+  .item {
+    width: 100%;
+    display: flex;
+    gap: var(--padding-y);
+    text-decoration: none;
+    color: var(--text);
+    transform: translateX(50%);
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .item.scrolled {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  .cover {
+    height: 10rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .content {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .item-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--title-size);
+    color: var(--text-light);
+  }
+
+  .closed-pill {
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    background: var(--bg-decoration);
+    color: var(--bg);
+    font-size: calc(var(--font-size) * 0.85);
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .intro {
+    flex: 1;
+    display: block;
+    font-size: var(--font-size);
+  }
+
+  .date {
+    font-size: var(--font-size);
+    color: var(--text-focus);
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .item:hover .title-text {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .cover {
+      height: 8rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cover {
+      height: 6rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .item {
+      flex-direction: column;
+      width: 100%;
+      height: auto;
+    }
+    .cover {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>

@@ -15,31 +15,27 @@ export function setupCarousel(
     root = el
   }
 
-  const items = Array.from(
-    root.querySelectorAll<HTMLElement>("[data-carousel-item]"),
-  ).map(el => ({
-    el,
-    index: Number(el.dataset.carouselIndex),
-  }))
+  const items = Array.from(root.querySelectorAll<HTMLElement>("[data-carousel-item]"))
   const clickCtrls = Array.from(
     root.querySelectorAll<HTMLElement>("[data-carousel-click]"),
-  ).map(el => ({
-    el,
-    index: Number(el.dataset.carouselIndex),
-  }))
+  )
   const hoverCtrls = Array.from(
     root.querySelectorAll<HTMLElement>("[data-carousel-hover]"),
-  ).map(el => ({
-    el,
-    index: Number(el.dataset.carouselIndex),
-  }))
+  )
 
   if (items.length === 0)
     return
 
-  const total = Math.max(...items.map(i => i.index)) + 1
+  function getIndex(el: HTMLElement): number {
+    return Number(el.dataset.carouselIndex)
+  }
 
-  let current = items.find(i => i.el.dataset.active !== undefined)?.index ?? 0
+  const total = Math.max(...items.map(getIndex)) + 1
+
+  let current = 0
+  const initial = items.find(el => el.dataset.active !== undefined)
+  if (initial)
+    current = getIndex(initial)
   if (current < 0 || current >= total)
     current = 0
 
@@ -57,10 +53,10 @@ export function setupCarousel(
     if (idx === current)
       return
     const prev = current
-    for (const { el, index } of items) {
-      if (index === prev)
+    for (const el of items) {
+      if (getIndex(el) === prev)
         el.removeAttribute("data-active")
-      if (index === idx)
+      if (getIndex(el) === idx)
         el.setAttribute("data-active", "")
     }
     current = idx
@@ -82,18 +78,18 @@ export function setupCarousel(
     }
   }
 
-  clickCtrls.forEach(({ el, index }) => {
-    el.addEventListener("click", () => setActive(index))
+  clickCtrls.forEach((el) => {
+    el.addEventListener("click", () => setActive(getIndex(el)))
   })
 
-  hoverCtrls.forEach(({ el, index }) => {
+  hoverCtrls.forEach((el) => {
     let hoverTimer: number | null = null
     el.addEventListener("mouseover", () => {
       if (hoverTimer !== null)
         clearTimeout(hoverTimer)
       hoverTimer = window.setTimeout(() => {
         hoverTimer = null
-        setActive(index)
+        setActive(getIndex(el))
       }, hoverDelay)
     })
     el.addEventListener("mouseout", () => {
