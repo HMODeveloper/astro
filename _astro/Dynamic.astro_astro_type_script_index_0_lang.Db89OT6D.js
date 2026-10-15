@@ -1,0 +1,1 @@
+import{t as e}from"./carousel.VjHkIeZx.js";e(`[data-carousel-dynamic]`);
