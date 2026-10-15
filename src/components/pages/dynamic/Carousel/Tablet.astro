@@ -1,0 +1,202 @@
+---
+interface Item {
+  title: string
+  description: string
+  date: string
+  cover: string
+  path: string
+}
+interface Props {
+  items: Item[]
+}
+const { items } = Astro.props
+const itemsJson = JSON.stringify(items)
+---
+
+<div
+  class="carousel-dynamic-tablet"
+  data-carousel-dynamic-tablet
+  data-carousel-pause
+  data-items={itemsJson}
+  data-responsive-tablet
+>
+  <div class="carousel">
+    <div class="item-container">
+      <div class="item">
+        <div
+          class="title"
+          id="dynamic-tablet-title"
+        ></div>
+        <div
+          class="description"
+          id="dynamic-tablet-desc"
+        ></div>
+        <div
+          class="date"
+          id="dynamic-tablet-date"
+        ></div>
+      </div>
+      <a
+        class="button-container"
+        id="dynamic-tablet-button"
+      >
+        <span>
+          <i class="fa-solid fa-arrow-right" />
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="line-container">
+    {
+      [0, 1, 2, 3, 4].map(k => (
+        <div
+          class="line"
+          data-carousel-item
+          data-carousel-click
+          data-carousel-index={k}
+          data-active={k === 0 ? "" : undefined}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .carousel-dynamic-tablet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carousel {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: background 2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .item-container {
+    width: 100%;
+    padding: 0 var(--padding-y);
+    display: flex;
+    background-color: var(--bg-cover);
+  }
+
+  .item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .item .title {
+    font-size: var(--title-size);
+    color: var(--text-light);
+  }
+
+  .item .description {
+    font-size: var(--font-size);
+  }
+
+  .item .date {
+    font-size: 0.75rem;
+    color: var(--text-focus);
+  }
+
+  .button-container {
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button-container span {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--text-focus);
+    text-align: center;
+    color: var(--bg);
+  }
+
+  .line-container {
+    width: 100%;
+    display: flex;
+    padding-top: 1rem;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .line {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--text);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .line[data-active] {
+    background: var(--text-light);
+  }
+
+  @media (max-width: 420px) {
+    .line-container {
+      padding-top: 0.5rem;
+      gap: 0.25rem;
+    }
+  }
+</style>
+
+<script>
+  import { setupCarousel } from "@/scripts/carousel"
+
+  interface Item {
+    title: string
+    description: string
+    date: string
+    cover: string
+    path: string
+  }
+
+  const root = document.querySelector<HTMLElement>("[data-carousel-dynamic-tablet]")!
+  const items = JSON.parse(root.dataset.items!) as Item[]
+
+  const carousel = root.querySelector<HTMLElement>(".carousel")!
+  const tabletTitle = root.querySelector<HTMLElement>("#dynamic-tablet-title")!
+  const tabletDesc = root.querySelector<HTMLElement>("#dynamic-tablet-desc")!
+  const tabletDate = root.querySelector<HTMLElement>("#dynamic-tablet-date")!
+  const tabletLink = root.querySelector<HTMLAnchorElement>("#dynamic-tablet-button")!
+
+  function updateView(idx: number) {
+    const item = items[idx]
+    if (!item)
+      return
+    carousel.style.backgroundImage = `url(${item.cover})`
+    tabletTitle.textContent = item.title
+    tabletDesc.textContent = item.description
+    tabletDate.textContent = item.date
+    tabletLink.setAttribute("href", `/dynamic/${item.path}`)
+  }
+
+  const initialActive = root.querySelector("[data-active][data-carousel-item]")
+  const initialIdx = initialActive
+    ? Number(initialActive.getAttribute("data-carousel-index"))
+    : 0
+  updateView(initialIdx)
+
+  setupCarousel("[data-carousel-dynamic-tablet]", {
+    interval: 5000,
+    onChange: idx => updateView(idx),
+  })
+</script>

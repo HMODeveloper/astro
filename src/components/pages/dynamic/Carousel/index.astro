@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content"
+import Desktop from "./Desktop.astro"
+import Tablet from "./Tablet.astro"
+
+const entries = await getCollection("dynamic")
+  .then(arr => arr
+    .slice()
+    .sort((a, b) => {
+      const cmp = b.data.date.localeCompare(a.data.date)
+      return cmp !== 0 ? cmp : b.data.index - a.data.index
+    }),
+  )
+
+const items = entries.slice(0, 5).map(entry => ({
+  title: entry.data.title,
+  description: entry.data.description,
+  date: entry.data.date,
+  cover: entry.data.cover,
+  path: entry.id,
+}))
+---
+
+<Desktop items={items} />
+<Tablet items={items} />

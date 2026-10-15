@@ -1,0 +1,160 @@
+---
+import { getCollection } from "astro:content"
+import Section from "@/components/base/Section.astro"
+
+const SKIPPED_COUNT = 5
+
+const entries = await getCollection("dynamic")
+  .then(arr => arr
+    .slice()
+    .sort((a, b) => {
+      const cmp = b.data.date.localeCompare(a.data.date)
+      return cmp !== 0 ? cmp : b.data.index - a.data.index
+    }),
+  )
+
+const items = entries.slice(SKIPPED_COUNT).map(entry => ({
+  title: entry.data.title,
+  description: entry.data.description,
+  date: entry.data.date,
+  authors: entry.data.authors,
+  cover: entry.data.cover,
+  path: entry.id,
+}))
+---
+
+<Section classname="list-section">
+  <Fragment slot="title">历史动态</Fragment>
+  <div class="list">
+    {
+      items.map(item => (
+        <div class="item-container" data-section>
+          <a
+            class="item"
+            data-scroll
+            href={`/dynamic/${item.path}`}
+          >
+            <img
+              class="cover"
+              src={item.cover}
+              alt={item.title}
+              loading="lazy"
+            />
+            <div class="content">
+              <div class="title">{item.title}</div>
+              <div class="description">{item.description}</div>
+              <div class="info">
+                <span class="author">
+                  <span data-responsive-desktop>
+                    {item.authors.join(", ")}
+                  </span>
+                  <span data-responsive-tablet>
+                    {item.authors.map(a => <p>{a}</p>)}
+                  </span>
+                </span>
+                <span class="date">{item.date}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .list-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--padding-y);
+  }
+
+  .item-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: var(--padding-y) var(--padding-y);
+    overflow-x: hidden;
+  }
+
+  .item {
+    width: 100%;
+    height: 10rem;
+    display: flex;
+    gap: var(--padding-y);
+    text-decoration: none;
+    color: var(--text);
+    transform: translateX(50%);
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .item.scrolled {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  .cover {
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .content {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .title {
+    font-size: var(--title-size);
+    color: var(--text-light);
+  }
+
+  .description {
+    flex: 1;
+    display: block;
+    font-size: var(--font-size);
+  }
+
+  .info {
+    display: flex;
+    gap: var(--padding-y);
+    font-size: var(--font-size);
+  }
+  .info .author:hover {
+    text-decoration: underline;
+  }
+  .info .date {
+    color: var(--text-focus);
+  }
+
+  .item:hover .title {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .item {
+      height: auto;
+    }
+    .cover {
+      height: 8rem;
+    }
+  }
+  @media (max-width: 640px) {
+    .cover {
+      height: 4rem;
+    }
+  }
+</style>

@@ -1,0 +1,188 @@
+---
+interface Item {
+  title: string
+  description: string
+  date: string
+  cover: string
+  path: string
+}
+interface Props {
+  items: Item[]
+}
+const { items } = Astro.props
+---
+
+<div
+  class="carousel-dynamic-desktop"
+  data-carousel-dynamic-desktop
+  data-carousel-pause
+  data-items={JSON.stringify(items)}
+  data-responsive-desktop
+>
+  <div class="carousel">
+    <div class="item-container">
+      {
+        items.map((item, i) => (
+          <div
+            class="item"
+            data-carousel-item
+            data-carousel-click
+            data-carousel-index={i}
+            data-active={i === 0 ? "" : undefined}
+          >
+            <div class="title">{item.title}</div>
+            <div class="description">{item.description}</div>
+            <div class="info">
+              <span class="date">{item.date}</span>
+              <a
+                href={`/dynamic/${item.path}`}
+                class="button"
+              >
+                <span>
+                  详细信息
+                  <i class="fa-solid fa-arrow-right" />
+                </span>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .carousel-dynamic-desktop {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carousel {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: background 2s ease;
+    display: flex;
+  }
+
+  .item-container {
+    width: 30%;
+    height: 100%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .item {
+    flex: 1;
+    width: 100%;
+    padding: 0 var(--padding-y);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--bg-cover);
+    transition: background 2s ease;
+    cursor: pointer;
+  }
+
+  .item .title {
+    font-size: var(--title-size);
+    color: var(--text-light);
+  }
+
+  .item .description {
+    font-size: var(--font-size);
+  }
+
+  .item .info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-focus);
+  }
+
+  .item .info .button {
+    margin-left: auto;
+    transform: skew(-20deg);
+    border: 1px solid var(--text-light);
+    padding: 0 var(--padding-y);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .item .info .button span {
+    font-size: var(--font-size);
+    transform: skew(20deg);
+    color: var(--text-light);
+  }
+
+  .item .info .button:hover {
+    transform: scale(1.1) skew(-20deg);
+  }
+
+  .item[data-active] {
+    background-color: var(--bg-decoration);
+  }
+
+  @media (max-width: 1024px) {
+    .item-container {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .item .description {
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+</style>
+
+<script>
+  import { setupCarousel } from "@/scripts/carousel"
+
+  interface Item {
+    title: string
+    description: string
+    date: string
+    cover: string
+    path: string
+  }
+
+  const root = document.querySelector<HTMLElement>("[data-carousel-dynamic-desktop]")!
+  const items = JSON.parse(root.dataset.items!) as Item[]
+
+  const carousel = root.querySelector<HTMLElement>(".carousel")!
+
+  function updateView(idx: number) {
+    const item = items[idx]
+    if (!item)
+      return
+    carousel.style.backgroundImage = `url(${item.cover})`
+  }
+
+  const initialActive = root.querySelector("[data-active][data-carousel-item]")
+  const initialIdx = initialActive
+    ? Number(initialActive.getAttribute("data-carousel-index"))
+    : 0
+  updateView(initialIdx)
+
+  setupCarousel("[data-carousel-dynamic-desktop]", {
+    interval: 5000,
+    onChange: idx => updateView(idx),
+  })
+</script>
