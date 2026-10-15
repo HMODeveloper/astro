@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm i
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Deploy to dist branch
+        # 仅用于推送到 dist 分支
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: dist
+          folder: dist
+          single-commit: true
+          clean: true
