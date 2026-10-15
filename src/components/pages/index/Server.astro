@@ -97,10 +97,13 @@ const items: ServerCard[] = entries
     background-position: center;
     background-size: cover;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 2s ease;
   }
   .server-card[data-active] {
+    z-index: 1;
     opacity: 1;
+    pointer-events: auto;
   }
 
   .content {
