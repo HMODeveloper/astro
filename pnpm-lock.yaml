@@ -11,9 +11,6 @@ importers:
       '@astrojs/vercel':
         specifier: ^11.0.14
         version: 11.0.14(astro@7.3.8(@vercel/functions@3.9.11)(yaml@2.9.1))
-      '@xtwis/ohday':
-        specifier: ^1.0.1
-        version: 1.0.1
       astro:
         specifier: ^7.3.8
         version: 7.3.8(@vercel/functions@3.9.11)(yaml@2.9.1)
@@ -1167,9 +1164,6 @@ packages:
 
   '@vue/shared@3.5.44':
     resolution: {integrity: sha512-H82XLH0DjmSOdbEwO15x3QTo1f5PWEtv237eLpYKc0mqLu+B8hnq16lFWmuBmNurkeiG3wr+oM1FhOll/YVFRg==}
-
-  '@xtwis/ohday@1.0.1':
-    resolution: {integrity: sha512-xGZtjCrnNlxKG3AxRJyGjdOgaDRMBFpsCRSUE9iaI+obGYQJe/RIPN3FuXHH1soVG7VKwodiKPCW2RjysKKGdg==}
 
   abbrev@3.0.1:
     resolution: {integrity: sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==}
@@ -4255,8 +4249,6 @@ snapshots:
       '@vue/shared': 3.5.44
 
   '@vue/shared@3.5.44': {}
-
-  '@xtwis/ohday@1.0.1': {}
 
   abbrev@3.0.1: {}
 

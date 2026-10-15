@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content"
 import Section from "@/components/base/Section.astro"
-import { od } from "@/utils/ohday"
 
 interface ServerCard {
   title: string
@@ -31,23 +30,6 @@ const items: ServerCard[] = entries
       return 0
     return aClosed ? 1 : -1
   })
-
-function getServerDays(dateStr: string, asOf?: string): number {
-  if (!dateStr)
-    return 0
-  const from = od(dateStr).cs("d")
-  const ref = (asOf !== undefined ? od(asOf) : od()).cs("d")
-  return ref.diff(from, "d")
-}
-
-function getServerDateMsg(item: ServerCard): string {
-  if (!item.start)
-    return ""
-  if (item.end) {
-    return `(开服 ${getServerDays(item.start, item.end)} 天, 已完结 ${getServerDays(item.end)} 天)`
-  }
-  return `(已开服 ${getServerDays(item.start)} 天)`
-}
 ---
 
 <Section classname="list-section">
@@ -75,7 +57,14 @@ function getServerDateMsg(item: ServerCard): string {
               <div class="intro">{item.description || item.intro}</div>
               <div class="date">
                 <div class="date-line">
-                  开服日期: {item.start || "--已不可考--"} {getServerDateMsg(item)}
+                  开服日期: {item.start || "--已不可考--"}
+                  {item.start && (
+                    <span
+                      data-server-days
+                      data-start={item.start}
+                      data-end={item.end ?? ""}
+                    > -- </span>
+                  )}
                 </div>
                 {item.end && (
                   <div class="date-line">完结日期: {item.end}</div>
@@ -205,3 +194,21 @@ function getServerDateMsg(item: ServerCard): string {
     }
   }
 </style>
+
+<script>
+  function daysBetween(from: string, to?: string): number {
+    const f = new Date(`${from}T00:00:00Z`)
+    const t = to ? new Date(`${to}T00:00:00Z`) : new Date()
+    return Math.max(0, Math.floor((t.getTime() - f.getTime()) / 86_400_000))
+  }
+
+  for (const el of document.querySelectorAll<HTMLElement>("[data-server-days]")) {
+    const start = el.dataset.start
+    const end = el.dataset.end
+    if (!start)
+      continue
+    el.textContent = end
+      ? `(开服 ${daysBetween(start, end)} 天, 已完结 ${daysBetween(end)} 天)`
+      : `(已开服 ${daysBetween(start)} 天)`
+  }
+</script>

@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^11.0.14",
-    "@xtwis/ohday": "^1.0.1",
     "astro": "^7.3.8",
     "modern-css-reset": "^1.4.0"
   },
