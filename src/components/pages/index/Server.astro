@@ -11,7 +11,7 @@ interface ServerCard {
 
 const entries = await getCollection("server")
 const items: ServerCard[] = entries
-  .slice()
+  .filter(entry => !entry.data.end)
   .sort((a, b) => a.data.index - b.data.index)
   .map(entry => ({
     title: entry.data.title,
