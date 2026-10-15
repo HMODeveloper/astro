@@ -36,9 +36,9 @@ const items = entries.slice(SKIPPED_COUNT).map(entry => ({
           >
             <img
               class="cover"
-              src={item.cover}
+              src=""
               alt={item.title}
-              loading="lazy"
+              data-img-src={item.cover}
             />
             <div class="content">
               <div class="title">{item.title}</div>
@@ -158,3 +158,30 @@ const items = entries.slice(SKIPPED_COUNT).map(entry => ({
     }
   }
 </style>
+
+<script>
+const AHEAD = 2
+
+function applyImg(el: HTMLElement, depth = 0): void {
+  if (depth > AHEAD)
+    return
+  const img = el.querySelector<HTMLImageElement>("img[data-img-src]")
+  if (img?.dataset.imgSrc && !img.getAttribute("src"))
+    img.src = img.dataset.imgSrc
+  const nextItem = el.parentElement?.nextElementSibling?.querySelector<HTMLElement>(".item[data-scroll]")
+  if (nextItem)
+    applyImg(nextItem, depth + 1)
+}
+
+const observer = new MutationObserver((mutations) => {
+  for (const m of mutations) {
+    if (m.attributeName !== "class")
+      continue
+    const el = m.target as HTMLElement
+    if (el.classList.contains("scrolled"))
+      applyImg(el)
+  }
+})
+for (const el of document.querySelectorAll<HTMLElement>(".item[data-scroll]"))
+  observer.observe(el, { attributes: true })
+</script>

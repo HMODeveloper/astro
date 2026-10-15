@@ -45,9 +45,9 @@ const items: ServerCard[] = entries
           >
             <img
               class="cover"
-              src={item.cover}
+              src=""
               alt={item.title}
-              loading="lazy"
+              data-img-src={item.cover}
             />
             <div class="content">
               <div class="item-title">
@@ -196,19 +196,44 @@ const items: ServerCard[] = entries
 </style>
 
 <script>
-  function daysBetween(from: string, to?: string): number {
-    const f = new Date(`${from}T00:00:00Z`)
-    const t = to ? new Date(`${to}T00:00:00Z`) : new Date()
-    return Math.max(0, Math.floor((t.getTime() - f.getTime()) / 86_400_000))
-  }
+const AHEAD = 2
 
-  for (const el of document.querySelectorAll<HTMLElement>("[data-server-days]")) {
-    const start = el.dataset.start
-    const end = el.dataset.end
-    if (!start)
+function applyImg(el: HTMLElement, depth = 0): void {
+  if (depth > AHEAD)
+    return
+  const img = el.querySelector<HTMLImageElement>("img[data-img-src]")
+  if (img?.dataset.imgSrc && !img.getAttribute("src"))
+    img.src = img.dataset.imgSrc
+  const nextItem = el.parentElement?.nextElementSibling?.querySelector<HTMLElement>(".item[data-scroll]")
+  if (nextItem)
+    applyImg(nextItem, depth + 1)
+}
+
+const observer = new MutationObserver((mutations) => {
+  for (const m of mutations) {
+    if (m.attributeName !== "class")
       continue
-    el.textContent = end
-      ? `(开服 ${daysBetween(start, end)} 天, 已完结 ${daysBetween(end)} 天)`
-      : `(已开服 ${daysBetween(start)} 天)`
+    const el = m.target as HTMLElement
+    if (el.classList.contains("scrolled"))
+      applyImg(el)
   }
+})
+for (const el of document.querySelectorAll<HTMLElement>(".item[data-scroll]"))
+  observer.observe(el, { attributes: true })
+
+function daysBetween(from: string, to?: string): number {
+  const f = new Date(`${from}T00:00:00Z`)
+  const t = to ? new Date(`${to}T00:00:00Z`) : new Date()
+  return Math.max(0, Math.floor((t.getTime() - f.getTime()) / 86_400_000))
+}
+
+for (const el of document.querySelectorAll<HTMLElement>("[data-server-days]")) {
+  const start = el.dataset.start
+  const end = el.dataset.end
+  if (!start)
+    continue
+  el.textContent = end
+    ? `(开服 ${daysBetween(start, end)} 天, 已完结 ${daysBetween(end)} 天)`
+    : `(已开服 ${daysBetween(start)} 天)`
+}
 </script>
