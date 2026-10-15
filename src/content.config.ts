@@ -2,29 +2,57 @@ import { glob } from "astro/loaders"
 import { z } from "astro/zod"
 import { defineCollection } from "astro:content"
 
+const FALLBACK_COVER = "/images/cover.webp"
+
+function createCover(description: string) {
+  return z.preprocess(
+    val => (val || FALLBACK_COVER),
+    z.string().describe(description),
+  )
+}
+
 const dynamic = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/dynamic" }),
   schema: z.object({
-    title: z.string(),
-    date: z.string(),
-    index: z.number().optional(),
-    cover: z.string().default("/images/cover.webp"),
-    authors: z.array(z.string()),
-    description: z.string().optional(),
+    date: z.string().describe("动态发布日期"),
+    index: z.number().describe("同日序号"),
+    title: z.string().describe("动态标题"),
+    cover: createCover("动态封面图 url"),
+    authors: z.array(z.string()).describe("作者"),
   }),
 })
 
 const server = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/server" }),
   schema: z.object({
-    title: z.string(),
-    address: z.union([z.string(), z.array(z.string())]),
-    port: z.number().optional(),
-    cover: z.string().default("/images/cover.webp"),
-    start: z.string().optional(),
-    end: z.string().nullable().optional(),
-    description: z.string().optional(),
+    name: z.string().describe("服务器代号"),
+    title: z.string().describe("服务器标题"),
+    intro: z.string().describe("服务器简介(艺术向)"),
+    description: z.string().describe("服务器描述"),
+    cover: createCover("服务器封面图 url"),
+    start: z.string().describe("开服日期"),
+    end: z.string().nullable().optional().describe("完结日期"),
+    index: z.number().describe("序号"),
+    map: z.string().nullable().describe("网页地图url"),
+    address: z
+      .union([z.string(), z.array(z.string()), z.null()])
+      .describe("服务器地址"),
   }),
 })
 
-export const collections = { dynamic, server }
+const cover = defineCollection({
+  loader: glob({ pattern: "cover.md", base: "./src/content" }),
+  schema: z.object({
+    list: z
+      .array(
+        z.object({
+          url: z.string().describe("封面url"),
+          server: z.string().describe("所属服务器"),
+          description: z.string().describe("封面描述(位置等)"),
+        }),
+      )
+      .describe("服务器封面图集"),
+  }),
+})
+
+export const collections = { dynamic, server, cover }
