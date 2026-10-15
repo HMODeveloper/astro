@@ -38,10 +38,17 @@ const hasData = items.length > 0
         <i class="fa-solid fa-play" /> 最新动态
       </Fragment>
 
-      <div class="dynamic" data-dynamic-carousel>
-        <div class="carousel-container">
+      <div class="dynamic" data-carousel-dynamic>
+        <div class="carousel-container" data-carousel-pause>
           {items.map((item, i) => (
-            <div class="carousel" data-dynamic-slide data-active={i === 0 ? "" : undefined}>
+            <div
+              class="carousel"
+              data-carousel-item
+              data-carousel-click
+              data-carousel-hover
+              data-carousel-index={i}
+              data-active={i === 0 ? "" : undefined}
+            >
               <img src={item.cover} alt={item.title} />
             </div>
           ))}
@@ -49,7 +56,13 @@ const hasData = items.length > 0
 
         <div class="content-stack">
           {items.map((item, i) => (
-            <div class="content" data-dynamic-content data-active={i === 0 ? "" : undefined}>
+            <div
+              class="content"
+              data-carousel-item
+              data-carousel-pause
+              data-carousel-index={i}
+              data-active={i === 0 ? "" : undefined}
+            >
               <a class="title" href={`/dynamic/${item.path}`}>
                 {item.title}
               </a>
@@ -155,68 +168,7 @@ const hasData = items.length > 0
 </style>
 
 <script>
-document.querySelectorAll<HTMLElement>("[data-dynamic-carousel]").forEach((root) => {
-  const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-dynamic-slide]"))
-  const contents = Array.from(root.querySelectorAll<HTMLElement>("[data-dynamic-content]"))
-  if (slides.length === 0)
-    return
+import { setupCarousel } from "@/scripts/carousel"
 
-  let current = slides.findIndex(s => s.dataset.active !== undefined)
-  if (current < 0)
-    current = 0
-
-  let timer: number | null = null
-  let hoverTimer: number | null = null
-  const HOVER_DELAY = 300
-
-  const setActive = (idx: number) => {
-    const target = ((idx % slides.length) + slides.length) % slides.length
-    if (target === current)
-      return
-    slides[current]?.removeAttribute("data-active")
-    contents[current]?.removeAttribute("data-active")
-    current = target
-    slides[current].setAttribute("data-active", "")
-    contents[current]?.setAttribute("data-active", "")
-  }
-
-  const start = () => {
-    if (timer !== null)
-      clearInterval(timer)
-    timer = window.setInterval(setActive, 5000, current + 1)
-  }
-
-  slides.forEach((slide, i) => {
-    slide.addEventListener("click", () => {
-      setActive(i)
-      start()
-    })
-  })
-
-  root.addEventListener("mouseover", (e) => {
-    const target = e.target as HTMLElement
-    const idx = slides.findIndex(s => s === target || s.contains(target))
-    if (idx < 0 || idx === current)
-      return
-    if (hoverTimer !== null)
-      clearTimeout(hoverTimer)
-    hoverTimer = window.setTimeout(() => {
-      hoverTimer = null
-      setActive(idx)
-      start()
-    }, HOVER_DELAY)
-  })
-
-  root.addEventListener("mouseout", (e) => {
-    const related = e.relatedTarget as HTMLElement | null
-    if (related && root.contains(related))
-      return
-    if (hoverTimer !== null) {
-      clearTimeout(hoverTimer)
-      hoverTimer = null
-    }
-  })
-
-  start()
-})
+setupCarousel("[data-carousel-dynamic]")
 </script>
