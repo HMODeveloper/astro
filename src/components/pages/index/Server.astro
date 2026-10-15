@@ -34,8 +34,8 @@ const items: ServerCard[] = entries
             class="server-card"
             data-carousel-item
             data-carousel-index={i}
+            data-cover={item.cover}
             data-active={i === 0 ? "" : undefined}
-            style={`background-image: url(${item.cover});`}
           >
             <div class="content">
               <div class="title">{item.title}</div>
@@ -208,5 +208,29 @@ const items: ServerCard[] = entries
 <script>
 import { setupCarousel } from "@/scripts/carousel"
 
-setupCarousel("[data-carousel-server]")
+const root = document.querySelector<HTMLElement>("[data-carousel-server]")!
+
+function getCard(idx: number): HTMLElement | null {
+  return root.querySelector<HTMLElement>(
+    `.server-card[data-carousel-index="${idx}"]`,
+  )
+}
+
+function applyCover(idx: number): void {
+  const total = root.querySelectorAll("[data-carousel-click]").length
+  const card = getCard(idx)
+  if (card?.dataset.cover)
+    card.style.backgroundImage = `url(${card.dataset.cover})`
+  const next = getCard((idx + 1) % total)
+  if (next?.dataset.cover)
+    next.style.backgroundImage = `url(${next.dataset.cover})`
+}
+
+applyCover(0)
+
+setupCarousel("[data-carousel-server]", {
+  onChange(idx) {
+    applyCover(idx)
+  },
+})
 </script>
