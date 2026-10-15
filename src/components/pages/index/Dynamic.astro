@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content"
+import LazyImage from "@/components/base/LazyImage.astro"
 import Section from "@/components/base/Section.astro"
 
 interface DynamicItem {
@@ -49,7 +50,7 @@ const hasData = items.length > 0
               data-carousel-index={i}
               data-active={i === 0 ? "" : undefined}
             >
-              <img src={item.cover} alt={item.title} />
+              <LazyImage src={item.cover} alt={item.title} />
             </div>
           ))}
         </div>

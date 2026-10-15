@@ -42,9 +42,11 @@ const pathname = Astro.url.pathname
       </div>
     </div>
     <script>
+      import { loadLazyImages } from "@/scripts/lazy-image"
       import { setupScrollClass } from "@/scripts/scroll-observer"
 
       setupScrollClass()
+      loadLazyImages()
     </script>
   </body>
 </html>

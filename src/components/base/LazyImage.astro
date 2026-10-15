@@ -1,0 +1,16 @@
+---
+interface Props {
+  src: string
+  alt?: string
+  [key: string]: unknown
+}
+
+const { src, alt = "", ...rest } = Astro.props
+---
+
+<img
+  src=""
+  alt={alt}
+  data-lazy-image={src}
+  {...rest}
+/>

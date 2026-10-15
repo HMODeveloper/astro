@@ -1,4 +1,6 @@
 ---
+import LazyImage from "@/components/base/LazyImage.astro"
+
 interface Props {
   src: string
   alt?: string
@@ -8,7 +10,7 @@ interface Props {
 const { src, alt = "", width, height } = Astro.props
 ---
 
-<img src={src} alt={alt} width={width} height={height} class="img" />
+<LazyImage src={src} alt={alt} width={width} height={height} class="img" />
 
 <style>
   .img {
