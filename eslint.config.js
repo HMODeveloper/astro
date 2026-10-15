@@ -2,7 +2,12 @@ import antfu from "@antfu/eslint-config"
 
 export default antfu(
   {
-    formatters: true,
+    formatters: {
+      css: true,
+      html: true,
+      markdown: true,
+      astro: false,
+    },
     astro: true,
     stylistic: {
       quotes: "double",

@@ -1,7 +1,27 @@
 ---
+import Donate from "@/components/pages/index/Donate.astro"
+import Dynamic from "@/components/pages/index/Dynamic.astro"
+import Hero from "@/components/pages/index/Hero/index.astro"
+import Intro from "@/components/pages/index/Intro.astro"
+import Server from "@/components/pages/index/Server.astro"
 import Layout from "@/layouts/Layout.astro"
 ---
 
 <Layout>
-  <div>HMO Astro</div>
+  <div class="page">
+    <Hero />
+    <Intro />
+    <Server />
+    <Dynamic />
+    <Donate />
+  </div>
 </Layout>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 var(--padding-x) var(--padding-y);
+  }
+</style>

@@ -17,6 +17,7 @@ const dynamic = defineCollection({
     date: z.string().describe("动态发布日期"),
     index: z.number().describe("同日序号"),
     title: z.string().describe("动态标题"),
+    description: z.string().describe("动态简介"),
     cover: createCover("动态封面图 url"),
     authors: z.array(z.string()).describe("作者"),
   }),

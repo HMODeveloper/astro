@@ -1,0 +1,222 @@
+---
+import { getCollection } from "astro:content"
+import Section from "@/components/base/Section.astro"
+
+interface DynamicItem {
+  title: string
+  description: string
+  date: string
+  authors: string[]
+  cover: string
+  path: string
+}
+
+const entries = await getCollection("dynamic")
+const items: DynamicItem[] = entries
+  .slice()
+  .sort((a, b) => {
+    const c = b.data.date.localeCompare(a.data.date)
+    return c !== 0 ? c : b.data.index - a.data.index
+  })
+  .slice(0, 5)
+  .map(entry => ({
+    title: entry.data.title,
+    description: entry.data.description ?? "",
+    date: entry.data.date,
+    authors: entry.data.authors,
+    cover: entry.data.cover,
+    path: entry.id,
+  }))
+
+const hasData = items.length > 0
+---
+
+{
+  hasData && (
+    <Section classname="dynamic-container">
+      <Fragment slot="title">
+        <i class="fa-solid fa-play" /> 最新动态
+      </Fragment>
+
+      <div class="dynamic" data-dynamic-carousel>
+        <div class="carousel-container">
+          {items.map((item, i) => (
+            <div class="carousel" data-dynamic-slide data-active={i === 0 ? "" : undefined}>
+              <img src={item.cover} alt={item.title} />
+            </div>
+          ))}
+        </div>
+
+        <div class="content-stack">
+          {items.map((item, i) => (
+            <div class="content" data-dynamic-content data-active={i === 0 ? "" : undefined}>
+              <a class="title" href={`/dynamic/${item.path}`}>
+                {item.title}
+              </a>
+              <div class="description">{item.description}</div>
+              <div class="info">
+                <span class="author">
+                  <span data-responsive-desktop>{item.authors.join(", ")}</span>
+                  <span data-responsive-tablet>
+                    {item.authors.map(a => (
+                      <p>{a}</p>
+                    ))}
+                  </span>
+                </span>
+                <span class="date">{item.date}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  )
+}
+
+<style>
+  .dynamic-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dynamic {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .carousel-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .carousel {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.3);
+    transition: filter 2s ease;
+  }
+  .carousel[data-active] img {
+    filter: brightness(1);
+  }
+
+  .content-stack {
+    position: relative;
+    width: 100%;
+  }
+  .content {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .content[data-active] {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .content .title {
+    text-decoration: none;
+    font-size: var(--title-size);
+    color: var(--text-light);
+  }
+  .content .title:hover {
+    text-decoration: underline;
+  }
+  .content .description {
+    flex: 1;
+    display: block;
+    font-size: var(--font-size);
+  }
+  .content .info {
+    display: flex;
+    gap: var(--padding-y);
+    font-size: var(--font-size);
+  }
+  .content .info .author:hover {
+    text-decoration: underline;
+  }
+  .content .info .date {
+    color: var(--text-focus);
+  }
+</style>
+
+<script>
+document.querySelectorAll<HTMLElement>("[data-dynamic-carousel]").forEach((root) => {
+  const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-dynamic-slide]"))
+  const contents = Array.from(root.querySelectorAll<HTMLElement>("[data-dynamic-content]"))
+  if (slides.length === 0)
+    return
+
+  let current = slides.findIndex(s => s.dataset.active !== undefined)
+  if (current < 0)
+    current = 0
+
+  let timer: number | null = null
+  let hoverTimer: number | null = null
+  const HOVER_DELAY = 300
+
+  const setActive = (idx: number) => {
+    const target = ((idx % slides.length) + slides.length) % slides.length
+    if (target === current)
+      return
+    slides[current]?.removeAttribute("data-active")
+    contents[current]?.removeAttribute("data-active")
+    current = target
+    slides[current].setAttribute("data-active", "")
+    contents[current]?.setAttribute("data-active", "")
+  }
+
+  const start = () => {
+    if (timer !== null)
+      clearInterval(timer)
+    timer = window.setInterval(setActive, 5000, current + 1)
+  }
+
+  slides.forEach((slide, i) => {
+    slide.addEventListener("click", () => {
+      setActive(i)
+      start()
+    })
+  })
+
+  root.addEventListener("mouseover", (e) => {
+    const target = e.target as HTMLElement
+    const idx = slides.findIndex(s => s === target || s.contains(target))
+    if (idx < 0 || idx === current)
+      return
+    if (hoverTimer !== null)
+      clearTimeout(hoverTimer)
+    hoverTimer = window.setTimeout(() => {
+      hoverTimer = null
+      setActive(idx)
+      start()
+    }, HOVER_DELAY)
+  })
+
+  root.addEventListener("mouseout", (e) => {
+    const related = e.relatedTarget as HTMLElement | null
+    if (related && root.contains(related))
+      return
+    if (hoverTimer !== null) {
+      clearTimeout(hoverTimer)
+      hoverTimer = null
+    }
+  })
+
+  start()
+})
+</script>

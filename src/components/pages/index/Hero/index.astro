@@ -1,0 +1,19 @@
+---
+import Section from "@/components/base/Section.astro"
+import Desktop from "./Desktop.astro"
+import Tablet from "./Tablet.astro"
+---
+
+<Section classname="hero-container">
+  <Desktop />
+  <Tablet />
+</Section>
+
+<style>
+  .hero-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import type { NavbarItem } from "./index.astro"
+
 interface Props {
   items: NavbarItem[]
 }
@@ -19,8 +20,8 @@ const { items } = Astro.props
   </div>
   <div class="body" data-nav-body>
     {
-      items.map((item) => (
-        <a href={item.to} class={"item" + (item.active ? " active" : "")}>
+      items.map(item => (
+        <a href={item.to} class={`item${item.active ? " active" : ""}`}>
           <div class="label-en">{item.labelEN}</div>
           <div class="label">{item.label}</div>
         </a>

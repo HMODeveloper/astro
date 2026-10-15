@@ -1,5 +1,6 @@
 ---
 import type { NavbarItem } from "./index.astro"
+
 interface Props {
   items: NavbarItem[]
 }
@@ -12,10 +13,10 @@ const { items } = Astro.props
   </div>
   <div class="right">
     {
-      items.map((item) => (
+      items.map(item => (
         <a
           href={item.to}
-          class={"item" + (item.active ? " active" : "")}
+          class={`item${item.active ? " active" : ""}`}
           data-nav-item
           data-nav-active={item.active ? "true" : undefined}
         >
@@ -88,12 +89,12 @@ const { items } = Astro.props
     item.addEventListener("mouseenter", () => {
       document
         .querySelectorAll<HTMLAnchorElement>("a[data-nav-item]")
-        .forEach((el) => el.classList.toggle("active", el === item))
+        .forEach(el => el.classList.toggle("active", el === item))
     })
     item.addEventListener("mouseleave", () => {
       document
         .querySelectorAll<HTMLAnchorElement>("a[data-nav-item]")
-        .forEach((el) => el.classList.toggle("active", el.getAttribute("data-nav-active") === "true"))
+        .forEach(el => el.classList.toggle("active", el.getAttribute("data-nav-active") === "true"))
     })
   })
 </script>

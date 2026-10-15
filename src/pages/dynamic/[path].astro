@@ -1,10 +1,10 @@
 ---
-import Layout from "@/layouts/Layout.astro"
 import { getCollection } from "astro:content"
+import Layout from "@/layouts/Layout.astro"
 
 export async function getStaticPaths() {
   const all = await getCollection("dynamic")
-  return all.map((entry) => ({
+  return all.map(entry => ({
     params: { path: entry.id },
     props: { entry },
   }))

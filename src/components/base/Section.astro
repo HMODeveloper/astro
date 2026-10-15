@@ -5,8 +5,10 @@ interface Props {
 }
 const { classname = "", card = false } = Astro.props
 const classes = ["section"]
-if (card) classes.push("card")
-if (classname) classes.push(classname)
+if (card)
+  classes.push("card")
+if (classname)
+  classes.push(classname)
 ---
 
 <section class:list={classes} data-section>
