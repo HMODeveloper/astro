@@ -1,0 +1,27 @@
+---
+interface Props {
+  src?: string
+  alt?: string
+}
+
+const { src = "", alt = "", ...rest } = Astro.props
+---
+
+<img
+  src={src}
+  class="img-preloader"
+  width="0"
+  height="0"
+  alt={alt}
+  aria-hidden="true"
+  {...rest}
+/>
+
+<style>
+  .img-preloader {
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+</style>

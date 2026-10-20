@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content"
+import ImagePreloader from "@/components/base/ImagePreloader.astro"
 
 const coverEntry = (await getCollection("cover"))[0]
 const coverList = coverEntry?.data.list ?? []
@@ -24,7 +25,6 @@ const covers = coverList.map(item => ({
           data-carousel-item
           data-carousel-index={i}
           data-cover-url={c.url}
-          style={`background-image: url(${c.url});`}
           data-active={i === 0 ? "" : undefined}
         >
           <div class="img-content">
@@ -46,6 +46,8 @@ const covers = coverList.map(item => ({
       ))
     }
   </div>
+
+  <ImagePreloader data-next-cover />
 </div>
 
 <style>
@@ -120,7 +122,14 @@ const covers = coverList.map(item => ({
   const thumbs = Array.from(
     root.querySelectorAll<HTMLElement>(".thumb"),
   )
+  const preloader = root.querySelector<HTMLImageElement>("img[data-next-cover]")
   const total = imgs.length
+
+  function applyImg(idx: number): void {
+    const img = imgs[idx]
+    if (img?.dataset.coverUrl)
+      img.style.backgroundImage = `url(${img.dataset.coverUrl})`
+  }
 
   function updateStrip(idx: number) {
     if (total === 0)
@@ -137,16 +146,27 @@ const covers = coverList.map(item => ({
       else
         thumbs[k].removeAttribute("data-active")
     }
+
+    if (preloader) {
+      const nextIdx = ((idx + 3) % total + total) % total
+      const nextUrl = imgs[nextIdx]?.dataset.coverUrl
+      if (nextUrl)
+        preloader.src = nextUrl
+    }
   }
 
   const initialActive = root.querySelector("[data-active][data-carousel-item]")
   const initialIdx = initialActive
     ? Number(initialActive.getAttribute("data-carousel-index"))
     : 0
+  applyImg(initialIdx)
   updateStrip(initialIdx)
 
   setupCarousel("[data-carousel-cover-carousel]", {
     interval: 3000,
-    onChange: idx => updateStrip(idx),
+    onChange: idx => {
+      applyImg(idx)
+      updateStrip(idx)
+    },
   })
 </script>
