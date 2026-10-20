@@ -16,10 +16,21 @@ const { items } = Astro.props
   class="carousel-dynamic-desktop"
   data-carousel-dynamic-desktop
   data-carousel-pause
-  data-items={JSON.stringify(items)}
   data-responsive-desktop
 >
   <div class="carousel">
+    {
+      items.map((item, i) => (
+        <div
+          class="cover"
+          data-carousel-item
+          data-carousel-click
+          data-carousel-index={i}
+          data-cover={item.cover}
+          data-active={i === 0 ? "" : undefined}
+        />
+      ))
+    }
     <div class="item-container">
       {
         items.map((item, i) => (
@@ -61,17 +72,30 @@ const { items } = Astro.props
   }
 
   .carousel {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-image: none;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    transition: background 2s ease;
     display: flex;
   }
 
+  .cover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: opacity 2s ease;
+  }
+  .cover[data-active] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
   .item-container {
+    position: relative;
+    z-index: 1;
     width: 30%;
     height: 100%;
     margin-left: auto;
@@ -155,34 +179,25 @@ const { items } = Astro.props
 <script>
   import { setupCarousel } from "@/scripts/carousel"
 
-  interface Item {
-    title: string
-    description: string
-    date: string
-    cover: string
-    path: string
-  }
-
   const root = document.querySelector<HTMLElement>("[data-carousel-dynamic-desktop]")!
-  const items = JSON.parse(root.dataset.items!) as Item[]
+  const items = Array.from(
+    root.querySelectorAll<HTMLElement>("[data-carousel-item][data-cover]"),
+  )
+  const total = items.length
 
-  const carousel = root.querySelector<HTMLElement>(".carousel")!
-
-  function updateView(idx: number) {
-    const item = items[idx]
-    if (!item)
-      return
-    carousel.style.backgroundImage = `url(${item.cover})`
+  function applyCover(idx: number): void {
+    const cur = items[idx]
+    if (cur?.dataset.cover && !cur.style.backgroundImage)
+      cur.style.backgroundImage = `url(${cur.dataset.cover})`
+    const next = items[(idx + 1) % total]
+    if (next?.dataset.cover && !next.style.backgroundImage)
+      next.style.backgroundImage = `url(${next.dataset.cover})`
   }
 
-  const initialActive = root.querySelector("[data-active][data-carousel-item]")
-  const initialIdx = initialActive
-    ? Number(initialActive.getAttribute("data-carousel-index"))
-    : 0
-  updateView(initialIdx)
+  applyCover(0)
 
   setupCarousel("[data-carousel-dynamic-desktop]", {
     interval: 5000,
-    onChange: idx => updateView(idx),
+    onChange: idx => applyCover(idx),
   })
 </script>

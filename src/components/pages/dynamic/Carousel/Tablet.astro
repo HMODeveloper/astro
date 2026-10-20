@@ -10,51 +10,55 @@ interface Props {
   items: Item[]
 }
 const { items } = Astro.props
-const itemsJson = JSON.stringify(items)
 ---
 
 <div
   class="carousel-dynamic-tablet"
   data-carousel-dynamic-tablet
   data-carousel-pause
-  data-items={itemsJson}
   data-responsive-tablet
 >
   <div class="carousel">
-    <div class="item-container">
-      <div class="item">
+    {
+      items.map((item, i) => (
         <div
-          class="title"
-          id="dynamic-tablet-title"
-        ></div>
-        <div
-          class="description"
-          id="dynamic-tablet-desc"
-        ></div>
-        <div
-          class="date"
-          id="dynamic-tablet-date"
-        ></div>
-      </div>
-      <a
-        class="button-container"
-        id="dynamic-tablet-button"
-      >
-        <span>
-          <i class="fa-solid fa-arrow-right" />
-        </span>
-      </a>
-    </div>
+          class="item"
+          data-carousel-item
+          data-carousel-click
+          data-carousel-index={i}
+          data-cover={item.cover}
+          data-active={i === 0 ? "" : undefined}
+        >
+          <div class="content">
+            <div class="info">
+              <div class="title">{item.title}</div>
+              <div class="description">{item.description}</div>
+              <div class="date">{item.date}</div>
+            </div>
+            <a
+              class="button-container"
+              href={`/dynamic/${item.path}`}
+            >
+              <span>
+                <i class="fa-solid fa-arrow-right" />
+              </span>
+            </a>
+          </div>
+        </div>
+      ))
+    }
   </div>
-  <div class="line-container">
+  <div class="line-container" data-carousel-pause>
     {
       [0, 1, 2, 3, 4].map(k => (
-        <div
+        <button
+          type="button"
           class="line"
           data-carousel-item
           data-carousel-click
           data-carousel-index={k}
           data-active={k === 0 ? "" : undefined}
+          aria-label={`跳转到第 ${k + 1} 项`}
         />
       ))
     }
@@ -71,26 +75,38 @@ const itemsJson = JSON.stringify(items)
   }
 
   .carousel {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-image: none;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    transition: background 2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
-
-  .item-container {
-    width: 100%;
-    padding: 0 var(--padding-y);
-    display: flex;
-    background-color: var(--bg-cover);
   }
 
   .item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease;
+    display: flex;
+    align-items: flex-end;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .item[data-active] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .item .content {
+    width: 100%;
+    padding: 0 var(--padding-y);
+    background-color: var(--bg-cover);
+    display: flex;
+    align-items: center;
+  }
+
+  .item .content .info {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -117,6 +133,7 @@ const itemsJson = JSON.stringify(items)
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
   }
 
   .button-container span {
@@ -142,6 +159,8 @@ const itemsJson = JSON.stringify(items)
     height: 4px;
     border-radius: 2px;
     background: var(--text);
+    border: none;
+    padding: 0;
     cursor: pointer;
     transition: background 0.3s ease;
   }
@@ -161,42 +180,25 @@ const itemsJson = JSON.stringify(items)
 <script>
   import { setupCarousel } from "@/scripts/carousel"
 
-  interface Item {
-    title: string
-    description: string
-    date: string
-    cover: string
-    path: string
-  }
-
   const root = document.querySelector<HTMLElement>("[data-carousel-dynamic-tablet]")!
-  const items = JSON.parse(root.dataset.items!) as Item[]
+  const items = Array.from(
+    root.querySelectorAll<HTMLElement>("[data-carousel-item][data-cover]"),
+  )
+  const total = items.length
 
-  const carousel = root.querySelector<HTMLElement>(".carousel")!
-  const tabletTitle = root.querySelector<HTMLElement>("#dynamic-tablet-title")!
-  const tabletDesc = root.querySelector<HTMLElement>("#dynamic-tablet-desc")!
-  const tabletDate = root.querySelector<HTMLElement>("#dynamic-tablet-date")!
-  const tabletLink = root.querySelector<HTMLAnchorElement>("#dynamic-tablet-button")!
-
-  function updateView(idx: number) {
-    const item = items[idx]
-    if (!item)
-      return
-    carousel.style.backgroundImage = `url(${item.cover})`
-    tabletTitle.textContent = item.title
-    tabletDesc.textContent = item.description
-    tabletDate.textContent = item.date
-    tabletLink.setAttribute("href", `/dynamic/${item.path}`)
+  function applyCover(idx: number): void {
+    const cur = items[idx]
+    if (cur?.dataset.cover && !cur.style.backgroundImage)
+      cur.style.backgroundImage = `url(${cur.dataset.cover})`
+    const next = items[(idx + 1) % total]
+    if (next?.dataset.cover && !next.style.backgroundImage)
+      next.style.backgroundImage = `url(${next.dataset.cover})`
   }
 
-  const initialActive = root.querySelector("[data-active][data-carousel-item]")
-  const initialIdx = initialActive
-    ? Number(initialActive.getAttribute("data-carousel-index"))
-    : 0
-  updateView(initialIdx)
+  applyCover(0)
 
   setupCarousel("[data-carousel-dynamic-tablet]", {
     interval: 5000,
-    onChange: idx => updateView(idx),
+    onChange: idx => applyCover(idx),
   })
 </script>
