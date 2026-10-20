@@ -7,11 +7,11 @@ export interface CarouselOptions {
 export function setupCarousel(
   root: HTMLElement | string,
   options?: CarouselOptions,
-): void {
+): () => void {
   if (typeof root === "string") {
     const el = document.querySelector<HTMLElement>(root)
     if (!el)
-      return
+      return () => {}
     root = el
   }
 
@@ -24,7 +24,7 @@ export function setupCarousel(
   )
 
   if (items.length === 0)
-    return
+    return () => {}
 
   function getIndex(el: HTMLElement): number {
     return Number(el.dataset.carouselIndex)
@@ -78,29 +78,37 @@ export function setupCarousel(
     }
   }
 
+  const off: Array<() => void> = []
+
   clickCtrls.forEach((el) => {
-    el.addEventListener("click", () => setActive(getIndex(el)))
+    const handler = () => setActive(getIndex(el))
+    el.addEventListener("click", handler)
+    off.push(() => el.removeEventListener("click", handler))
   })
 
   hoverCtrls.forEach((el) => {
     let hoverTimer: number | null = null
-    el.addEventListener("mouseover", () => {
+    const onOver = () => {
       if (hoverTimer !== null)
         clearTimeout(hoverTimer)
       hoverTimer = window.setTimeout(() => {
         hoverTimer = null
         setActive(getIndex(el))
       }, hoverDelay)
-    })
-    el.addEventListener("mouseout", () => {
+    }
+    const onOut = () => {
       if (hoverTimer !== null) {
         clearTimeout(hoverTimer)
         hoverTimer = null
       }
-    })
+    }
+    el.addEventListener("mouseover", onOver)
+    el.addEventListener("mouseout", onOut)
+    off.push(() => el.removeEventListener("mouseover", onOver))
+    off.push(() => el.removeEventListener("mouseout", onOut))
   })
 
-  root.addEventListener("mouseover", (e) => {
+  const onRootOver = (e: MouseEvent) => {
     const target = e.target as Element | null
     if (!target?.closest("[data-carousel-pause]"))
       return
@@ -108,9 +116,8 @@ export function setupCarousel(
       return
     pausedByHover = true
     stopAutoplay()
-  })
-
-  root.addEventListener("mouseout", (e) => {
+  }
+  const onRootOut = (e: MouseEvent) => {
     const target = e.target as Element | null
     if (!target?.closest("[data-carousel-pause]"))
       return
@@ -121,7 +128,16 @@ export function setupCarousel(
       return
     pausedByHover = false
     startAutoplay()
-  })
+  }
+  root.addEventListener("mouseover", onRootOver)
+  root.addEventListener("mouseout", onRootOut)
+  off.push(() => root.removeEventListener("mouseover", onRootOver))
+  off.push(() => root.removeEventListener("mouseout", onRootOut))
 
   startAutoplay()
+
+  return () => {
+    stopAutoplay()
+    for (const fn of off) fn()
+  }
 }

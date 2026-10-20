@@ -23,3 +23,53 @@ const items = entries.slice(0, 5).map(entry => ({
 
 <Desktop items={items} />
 <Tablet items={items} />
+
+<script>
+  import { setupCarousel } from "@/scripts/carousel"
+
+  const mq = window.matchMedia("(min-width: 769px)")
+  let teardown: () => void = () => {}
+
+  function init() {
+    teardown()
+
+    const isDesktop = mq.matches
+    const rootSelector = isDesktop
+      ? "[data-carousel-dynamic-desktop]"
+      : "[data-carousel-dynamic-tablet]"
+    const coverSelector = isDesktop ? ".cover" : ".item"
+
+    const root = document.querySelector<HTMLElement>(rootSelector)
+    if (!root) {
+      teardown = () => {}
+      return
+    }
+
+    const getCover = (idx: number): HTMLElement | null =>
+      root.querySelector<HTMLElement>(
+        `${coverSelector}[data-carousel-index="${idx}"]`,
+      )
+
+    const applyCover = (idx: number): void => {
+      const total = root.querySelectorAll<HTMLElement>(
+        `${coverSelector}[data-carousel-item]`,
+      ).length
+      const cover = getCover(idx)
+      if (cover?.dataset.cover)
+        cover.style.backgroundImage = `url(${cover.dataset.cover})`
+      const next = getCover((idx + 1) % total)
+      if (next?.dataset.cover)
+        next.style.backgroundImage = `url(${next.dataset.cover})`
+    }
+
+    applyCover(0)
+
+    teardown = setupCarousel(root, {
+      interval: 5000,
+      onChange: idx => applyCover(idx),
+    })
+  }
+
+  mq.addEventListener("change", init)
+  init()
+</script>

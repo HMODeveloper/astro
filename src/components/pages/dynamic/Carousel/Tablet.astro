@@ -176,29 +176,3 @@ const { items } = Astro.props
     }
   }
 </style>
-
-<script>
-  import { setupCarousel } from "@/scripts/carousel"
-
-  const root = document.querySelector<HTMLElement>("[data-carousel-dynamic-tablet]")!
-  const items = Array.from(
-    root.querySelectorAll<HTMLElement>("[data-carousel-item][data-cover]"),
-  )
-  const total = items.length
-
-  function applyCover(idx: number): void {
-    const cur = items[idx]
-    if (cur?.dataset.cover && !cur.style.backgroundImage)
-      cur.style.backgroundImage = `url(${cur.dataset.cover})`
-    const next = items[(idx + 1) % total]
-    if (next?.dataset.cover && !next.style.backgroundImage)
-      next.style.backgroundImage = `url(${next.dataset.cover})`
-  }
-
-  applyCover(0)
-
-  setupCarousel("[data-carousel-dynamic-tablet]", {
-    interval: 5000,
-    onChange: idx => applyCover(idx),
-  })
-</script>
