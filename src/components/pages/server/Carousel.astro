@@ -164,7 +164,7 @@ const covers = coverList.map(item => ({
 
   setupCarousel("[data-carousel-cover-carousel]", {
     interval: 3000,
-    onChange: idx => {
+    onChange: (idx) => {
       applyImg(idx)
       updateStrip(idx)
     },
