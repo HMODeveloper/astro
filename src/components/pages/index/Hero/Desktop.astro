@@ -4,7 +4,7 @@
 
 <div class="hero" data-responsive-desktop>
   <img src="/images/cover.webp" alt="cover" class="bg" />
-  <div class="content">
+  <div class="content" data-scroll>
     <div class="title" data-scroll>HMO-Minecraft 岳麓幻境社</div>
     <div class="subline" data-scroll>
       <p>在像素世界里, 用方块搭建</p>
@@ -33,8 +33,9 @@
     right: var(--padding-y);
     bottom: var(--padding-y);
     padding: var(--padding-y);
-    border: 4px solid var(--text);
+    border: 4px solid transparent;
     text-align: right;
+    transition: 1.4s all ease;
   }
   .title {
     font-size: var(--title-size);
@@ -51,6 +52,9 @@
     transform: translateX(50%);
     opacity: 0;
     transition: 1.2s all ease;
+  }
+  .content[data-scroll].scrolled {
+    border-color: var(--text);
   }
   .title[data-scroll].scrolled,
   .subline[data-scroll].scrolled {
