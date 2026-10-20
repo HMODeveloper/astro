@@ -13,14 +13,9 @@ const covers = coverList.map(item => ({
   title: titleOf(item.server),
   description: item.description,
 }))
-const coversJson = JSON.stringify(covers)
 ---
 
-<div
-  class="cover-carousel"
-  data-carousel-cover-carousel
-  data-covers={coversJson}
->
+<div class="cover-carousel" data-carousel-cover-carousel>
   <div class="img-stack" data-carousel-pause>
     {
       covers.map((c, i) => (
@@ -28,8 +23,9 @@ const coversJson = JSON.stringify(covers)
           class="img"
           data-carousel-item
           data-carousel-index={i}
-          data-active={i === 0 ? "" : undefined}
+          data-cover-url={c.url}
           style={`background-image: url(${c.url});`}
+          data-active={i === 0 ? "" : undefined}
         >
           <div class="img-content">
             {c.title} - {c.description}
@@ -118,23 +114,23 @@ const coversJson = JSON.stringify(covers)
   import { setupCarousel } from "@/scripts/carousel"
 
   const root = document.querySelector<HTMLElement>("[data-carousel-cover-carousel]")!
-  const covers = JSON.parse(root.dataset.covers!) as {
-    url: string
-    title: string
-    description: string
-  }[]
+  const imgs = Array.from(
+    root.querySelectorAll<HTMLElement>(".img[data-carousel-item]"),
+  )
   const thumbs = Array.from(
     root.querySelectorAll<HTMLElement>(".thumb"),
   )
+  const total = imgs.length
 
   function updateStrip(idx: number) {
-    const total = covers.length
     if (total === 0)
       return
     for (let k = 0; k < 5; k++) {
       const off = k - 2
       const coverIdx = ((idx + off) % total + total) % total
-      thumbs[k].style.backgroundImage = `url(${covers[coverIdx].url})`
+      const url = imgs[coverIdx]?.dataset.coverUrl
+      if (url)
+        thumbs[k].style.backgroundImage = `url(${url})`
       thumbs[k].setAttribute("data-carousel-index", String(coverIdx))
       if (off === 0)
         thumbs[k].setAttribute("data-active", "")
