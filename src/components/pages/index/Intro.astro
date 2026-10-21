@@ -1,5 +1,8 @@
 ---
+import { getCollection } from "astro:content"
 import Section from "@/components/base/Section.astro"
+
+const [site] = await getCollection("site")
 
 interface ButtonItem {
   label: string
@@ -19,9 +22,7 @@ const buttonItems: ButtonItem[] = [
 <Section classname="intro-container" card>
   <div class="intro">
     <div class="content" data-scroll>
-      <p>这里是湖南大学校级社团Minecraft岳麓幻境社, 欢迎湖南高校学子共建的Minecraft高校圈!</p>
-      <p>本社下辖5大常驻服务器以及轮换整合包服务器, 满足各类高校Minecraft玩家的不同需要.</p>
-      <p>更有HUC高校起床战争系列赛, 百人社会模拟实验, 百团大战, 迎新茶话会等各类线上线下活动等你参与!</p>
+      {site.data.intros.map(intro => <p>{intro}</p>)}
     </div>
 
     <div class="button">

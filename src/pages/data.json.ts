@@ -13,19 +13,23 @@ async function formatContents(collection: Collection) {
   }))
 }
 
-async function formetCovers() {
-  const entries = await getCollection("cover")
-  const item = entries[0]
-  if (!item)
-    return []
-  return item.data.list
+async function formatCovers() {
+  const [cover] = await getCollection("cover")
+  return cover.data.list
+}
+
+async function formatSite() {
+  const [site] = await getCollection("site")
+  return site.data
 }
 
 async function getDataJson() {
   const servers = await formatContents("server")
   const dynamics = await formatContents("dynamic")
-  const covers = await formetCovers()
+  const covers = await formatCovers()
+  const site = await formatSite()
   return {
+    site,
     servers,
     dynamics,
     covers,

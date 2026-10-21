@@ -11,6 +11,17 @@ function createCover(description: string) {
   )
 }
 
+const site = defineCollection({
+  loader: glob({ pattern: "site.md", base: "./src/content" }),
+  schema: z.object({
+    title: z.string().describe("站点标题"),
+    description: z.string().describe("站点描述"),
+    hero: z.string().describe("Hero 主标题"),
+    sublines: z.array(z.string()).describe("Hero 副标题"),
+    intros: z.array(z.string()).describe("首页介绍段落"),
+  }),
+})
+
 const dynamic = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/dynamic" }),
   schema: z.object({
@@ -56,4 +67,4 @@ const cover = defineCollection({
   }),
 })
 
-export const collections = { dynamic, server, cover }
+export const collections = { site, dynamic, server, cover }

@@ -1,14 +1,18 @@
 ---
+interface Props {
+  hero: string
+  sublines: string[]
+}
 
+const { hero, sublines } = Astro.props
 ---
 
 <div class="hero" data-responsive-desktop>
   <img src="/images/cover.webp" alt="cover" class="bg" />
   <div class="content" data-scroll>
-    <div class="title" data-scroll>HMO-Minecraft 岳麓幻境社</div>
+    <div class="title" data-scroll>{hero}</div>
     <div class="subline" data-scroll>
-      <p>在像素世界里, 用方块搭建</p>
-      <p>岳麓山下的幻境</p>
+      {sublines.map(line => <p>{line}</p>)}
     </div>
   </div>
 </div>

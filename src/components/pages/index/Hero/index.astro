@@ -1,12 +1,15 @@
 ---
+import { getCollection } from "astro:content"
 import Section from "@/components/base/Section.astro"
 import Desktop from "./Desktop.astro"
 import Tablet from "./Tablet.astro"
+
+const [site] = await getCollection("site")
 ---
 
 <Section classname="hero-container">
-  <Desktop />
-  <Tablet />
+  <Desktop hero={site.data.hero} sublines={site.data.sublines} />
+  <Tablet hero={site.data.hero} sublines={site.data.sublines} />
 </Section>
 
 <style>
