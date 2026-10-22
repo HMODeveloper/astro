@@ -1,9 +1,9 @@
 import type { IncomingMessage, ServerResponse } from "node:http"
 import type { Context } from "@/core/types"
 import { Buffer } from "node:buffer"
-import { log } from "@/core/logger"
-import { serveStatic } from "@/core/static"
+import { log } from "@/logger"
 import { routes } from "@/route"
+import { serveStatic } from "@/static"
 
 export function dispatch(req: IncomingMessage, res: ServerResponse): void {
   const controller = new AbortController()

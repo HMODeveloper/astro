@@ -1,11 +1,3 @@
-import process from "node:process"
-import { fileURLToPath } from "node:url"
-
-export const PORT = Number(process.env.PORT ?? 3000)
-export const HOST = process.env.HOST ?? "0.0.0.0"
-
-export const SITE_ROOT = process.env.SITE_ROOT ?? fileURLToPath(new URL("../../dist", import.meta.url))
-
 export const REQUEST_TIMEOUT = 15_000
 export const HEADERS_TIMEOUT = 10_000
 export const KEEP_ALIVE_TIMEOUT = 5_000

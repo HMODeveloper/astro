@@ -4,8 +4,9 @@ import type { Context } from "@/core/types"
 import { createReadStream } from "node:fs"
 import { stat } from "node:fs/promises"
 import path from "node:path"
-import { ASSET_MAX_AGE, DATA_MAX_AGE, HTML_MAX_AGE, IMMUTABLE_MAX_AGE, META_MAX_AGE, SITE_ROOT } from "@/core/const"
-import { log } from "@/core/logger"
+import { ASSET_MAX_AGE, DATA_MAX_AGE, HTML_MAX_AGE, IMMUTABLE_MAX_AGE, META_MAX_AGE } from "@/core/const"
+import { ENV } from "@/env"
+import { log } from "@/logger"
 
 const MIME: Record<string, string> = {
   ".html": "text/html; charset=utf-8",
@@ -66,7 +67,7 @@ export async function serveStatic(res: ServerResponse, ctx: Context): Promise<vo
 }
 
 async function notFound(res: ServerResponse): Promise<void> {
-  const file = path.join(SITE_ROOT, "404.html")
+  const file = path.join(ENV.SITE_ROOT, "404.html")
   const info = await statFile(file)
 
   const cache = `public, max-age=${HTML_MAX_AGE}, must-revalidate`
@@ -99,9 +100,9 @@ async function locate(pathname: string): Promise<{ file: string, info: Stats } |
   if (decoded.includes("\0"))
     return undefined
 
-  const target = path.join(SITE_ROOT, path.posix.normalize(decoded))
+  const target = path.join(ENV.SITE_ROOT, path.posix.normalize(decoded))
 
-  if (target !== SITE_ROOT && !target.startsWith(SITE_ROOT + path.sep))
+  if (target !== ENV.SITE_ROOT && !target.startsWith(ENV.SITE_ROOT + path.sep))
     return undefined
 
   for (const candidate of [target, path.join(target, "index.html")]) {
