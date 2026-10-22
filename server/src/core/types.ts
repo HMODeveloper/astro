@@ -1,7 +1,10 @@
+import type { IncomingHttpHeaders } from "node:http"
+
 export interface Context {
   method: string
   pathname: string
   query: URLSearchParams
+  headers: IncomingHttpHeaders
   ip: string
   signal: AbortSignal
 }

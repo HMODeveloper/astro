@@ -2,11 +2,15 @@ import type { IncomingMessage, ServerResponse } from "node:http"
 import type { Context } from "@/core/types"
 import { Buffer } from "node:buffer"
 import { log } from "@/core/logger"
+import { serveStatic } from "@/core/static"
 import { routes } from "@/route"
 
 export function dispatch(req: IncomingMessage, res: ServerResponse): void {
   const controller = new AbortController()
-  req.on("close", () => controller.abort())
+  res.on("close", () => {
+    if (!res.writableEnded)
+      controller.abort()
+  })
 
   const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`)
 
@@ -14,6 +18,7 @@ export function dispatch(req: IncomingMessage, res: ServerResponse): void {
     method: req.method ?? "GET",
     pathname: url.pathname,
     query: url.searchParams,
+    headers: req.headers,
     ip: ip(req),
     signal: controller.signal,
   }
@@ -25,7 +30,12 @@ async function handle(ctx: Context, method: string, res: ServerResponse): Promis
   const endpoint = routes.find(r => r.path === ctx.pathname && r.method === method)
 
   if (!endpoint) {
-    send(res, 400, { error: "not found" })
+    if (ctx.pathname === "/api" || ctx.pathname.startsWith("/api/")) {
+      send(res, 400, { error: "not found" })
+      return
+    }
+
+    await serveStatic(res, ctx)
     return
   }
 
