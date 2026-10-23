@@ -16,9 +16,16 @@ export interface EndpointContext<Params, Query, Payload> {
 
 export type Handler<Params, Query, Payload, Response> = (context: EndpointContext<Params, Query, Payload>) => Promise<Response>
 
+export interface EndpointOptions {
+  header?: Record<string, string>
+}
+
 export function endpoint<Params, Query, Payload, Response>(
   handler: Handler<Params, Query, Payload, Response>,
+  options: EndpointOptions = {},
 ): EventHandler {
+  const headers: Record<string, string> = { "cache-control": "no-store", ...options.header }
+
   return async (event: H3Event) => {
     try {
       const context: EndpointContext<Params, Query, Payload> = {
@@ -33,10 +40,10 @@ export function endpoint<Params, Query, Payload, Response>(
         signal: event.req.signal,
       }
 
-      return json(await handler(context))
+      return json(await handler(context), headers)
     }
     catch (err) {
-      return text(err instanceof Error ? err.message : "unknown error")
+      return text(err instanceof Error ? err.message : "unknown error", headers)
     }
   }
 }
@@ -55,17 +62,18 @@ async function readPayload(event: H3Event): Promise<unknown> {
   }
 }
 
-function json(data: unknown): Response {
+function json(data: unknown, headers: Record<string, string>): Response {
   const body = JSON.stringify(data)
 
   return new Response(body === undefined ? "" : body, {
     status: 200,
-    headers: { "content-type": "application/json; charset=utf-8" },
+    headers: { "content-type": "application/json; charset=utf-8", ...headers },
   })
 }
 
-function text(message: string): Response {
+function text(message: string, headers: Record<string, string>): Response {
   return new Response(message, {
     status: 400,
+    headers,
   })
 }

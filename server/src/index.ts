@@ -8,7 +8,10 @@ const app = new H3()
 
 app.use("/api/**", router.handler)
 app.use("/**", staticHandler)
-app.use("/**", () => new Response("method not allowed", { status: 405, headers: { allow: "GET, HEAD" } }))
+app.use("/**", () => new Response(
+  "method not allowed",
+  { status: 405, headers: { allow: "GET, HEAD" } },
+))
 
 const server = serve(app, {
   port: ENV.PORT,
