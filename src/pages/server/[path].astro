@@ -46,36 +46,25 @@ const { entry } = Astro.props
         <i class="fa-solid fa-calendar" />
         <span>{entry.data.start || "xxxx-xx-xx"}</span>
       </span>
-      {
-        entry.data.map && (
-          <span class="map">
-            网页地图:
-            <i class="fa-solid fa-earth-americas" />
-            <a
-              href={`https://${entry.data.map}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {entry.data.map}
-            </a>
-          </span>
-        )
-      }
-      {
-        entry.data.name !== "join" && (
-          <span class="join">
-            入服指南:
-            <i class="fa-solid fa-book" />
-            <a
-              href="https://docs.qq.com/aio/p/scw3wwi5x2tslm9?p=homViskRsqkXC8nDU2h6HY"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              点击查看
-            </a>
-          </span>
-        )
-      }
+      <span class="map">
+        网页地图:
+        <i class="fa-solid fa-earth-americas" />
+        {
+          entry.data.map
+            ? (
+              <a
+                href={`https://${entry.data.map}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {entry.data.map}
+              </a>
+            )
+            : (
+              <span>暂无</span>
+            )
+        }
+      </span>
     </div>
 
     <Markdown entry={entry} />

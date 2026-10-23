@@ -3,6 +3,7 @@ import { getCollection } from "astro:content"
 import Section from "@/components/base/Section.astro"
 
 interface ServerCard {
+  index: number
   title: string
   intro: string
   description: string
@@ -15,6 +16,7 @@ interface ServerCard {
 const entries = await getCollection("server")
 const items: ServerCard[] = entries
   .map(entry => ({
+    index: entry.data.index,
     title: entry.data.title,
     intro: entry.data.intro,
     description: entry.data.description,
@@ -26,9 +28,9 @@ const items: ServerCard[] = entries
   .sort((a, b) => {
     const aClosed = a.end != null
     const bClosed = b.end != null
-    if (aClosed === bClosed)
-      return 0
-    return aClosed ? 1 : -1
+    if (aClosed !== bClosed)
+      return aClosed ? 1 : -1
+    return a.index - b.index
   })
 ---
 
