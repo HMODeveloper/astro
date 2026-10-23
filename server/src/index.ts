@@ -1,24 +1,19 @@
-import { createServer } from "node:http"
-import process from "node:process"
-import { HEADERS_TIMEOUT, KEEP_ALIVE_TIMEOUT, REQUEST_TIMEOUT, SHUTDOWN_TIMEOUT } from "@/core/const"
-import { dispatch } from "@/core/dispatcher"
+import { H3, serve } from "h3"
 import { ENV } from "@/env"
 import { log } from "@/logger"
+import { router } from "@/route"
 
-const server = createServer(dispatch)
+const app = new H3()
 
-server.requestTimeout = REQUEST_TIMEOUT
-server.headersTimeout = HEADERS_TIMEOUT
-server.keepAliveTimeout = KEEP_ALIVE_TIMEOUT
+app.use(router)
 
-server.listen(ENV.PORT, ENV.HOST, () => {
-  log.info(`[server] listening on http://${ENV.HOST}:${ENV.PORT}`)
+const server = serve(app, {
+  port: ENV.PORT,
+  hostname: ENV.HOST,
+  silent: true,
 })
 
-function shutdown(): void {
-  server.close(() => process.exit(0))
-  setTimeout(() => process.exit(1), SHUTDOWN_TIMEOUT).unref()
-}
-
-process.on("SIGTERM", shutdown)
-process.on("SIGINT", shutdown)
+server.ready().then(
+  () => log.info(`[server] listening on http://${ENV.HOST}:${ENV.PORT}`),
+  err => log.error("[server] failed to start", err),
+)

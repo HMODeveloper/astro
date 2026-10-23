@@ -12,7 +12,9 @@
     "start": "node dist/index.mjs",
     "check": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "h3": "^2.0.8"
+  },
   "devDependencies": {
     "@types/node": "^24.9.1",
     "tsdown": "^0.23.1",

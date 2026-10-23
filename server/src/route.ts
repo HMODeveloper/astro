@@ -1,11 +1,8 @@
 import type { RootResponse } from "@/apis"
-import type { Endpoint } from "@/core/types"
-import { handlers } from "@/handlers"
+import { H3 } from "h3"
+import { endpoint } from "@/core/endpoint"
+import { handler } from "@/handlers"
 
-const api: Endpoint<RootResponse> = {
-  method: "GET",
-  path: "/api",
-  handler: handlers.root,
-}
+export const router = new H3()
 
-export const routes: Endpoint<unknown>[] = [api]
+router.get("/api", endpoint<null, null, null, RootResponse>(handler.root))
