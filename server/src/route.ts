@@ -6,3 +6,4 @@ import { handler } from "@/handlers"
 export const router = new H3()
 
 router.get("/api", endpoint<null, null, null, RootResponse>(handler.root))
+router.all("/api/**", () => new Response("not found", { status: 404 }))

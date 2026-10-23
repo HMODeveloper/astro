@@ -67,6 +67,5 @@ function json(data: unknown): Response {
 function text(message: string): Response {
   return new Response(message, {
     status: 400,
-    headers: { "content-type": "text/plain; charset=utf-8" },
   })
 }

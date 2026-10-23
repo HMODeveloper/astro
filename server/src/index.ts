@@ -5,7 +5,7 @@ import { router } from "@/route"
 
 const app = new H3()
 
-app.use(router)
+app.use("/api/**", router.handler)
 
 const server = serve(app, {
   port: ENV.PORT,
