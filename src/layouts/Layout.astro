@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content"
 import Background from "@/components/common/Background.astro"
+import Footer from "@/components/common/Footer.astro"
 import Navbar from "@/components/common/Navbar/index.astro"
 import "@/styles/main.css"
 
@@ -43,6 +44,7 @@ const pathname = Astro.url.pathname
         <div class="content">
           <slot />
         </div>
+        <Footer />
       </div>
     </div>
     <script>

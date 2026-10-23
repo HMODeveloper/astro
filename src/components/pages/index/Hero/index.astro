@@ -8,8 +8,8 @@ const [site] = await getCollection("site")
 ---
 
 <Section classname="hero-container">
-  <Desktop hero={site.data.hero} sublines={site.data.sublines} />
-  <Tablet hero={site.data.hero} sublines={site.data.sublines} />
+  <Desktop hero={site.data.hero.title} sublines={site.data.hero.sublines} />
+  <Tablet hero={site.data.hero.title} sublines={site.data.hero.sublines} />
 </Section>
 
 <style>

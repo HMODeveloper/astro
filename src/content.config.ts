@@ -16,9 +16,17 @@ const site = defineCollection({
   schema: z.object({
     title: z.string().describe("站点标题"),
     description: z.string().describe("站点描述"),
-    hero: z.string().describe("Hero 主标题"),
-    sublines: z.array(z.string()).describe("Hero 副标题"),
-    intros: z.array(z.string()).describe("首页介绍段落"),
+    hero: z.object({
+      title: z.string().describe("Hero 主标题"),
+      sublines: z.array(z.string()).describe("Hero 副标题"),
+      intros: z.array(z.string()).describe("首页介绍段落"),
+    }).describe("首页 Hero 区"),
+    footer: z.object({
+      title: z.string().describe("页脚左侧文本"),
+      start: z.number().describe("版权起始年份"),
+      author: z.string().describe("页脚版权归属"),
+      link: z.string().describe("页脚版权归属链接"),
+    }).describe("页脚"),
   }),
 })
 

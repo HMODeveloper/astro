@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content"
+
+const [site] = await getCollection("site")
+const year = new Date().getFullYear()
+---
+
+<div class="footer-container">
+  <footer class="footer">
+    <div class="left">
+      {site.data.footer.title}
+    </div>
+    <div class="right">
+      <span>Copyright &copy; {site.data.footer.start} - {year}</span>
+      <a
+        href={site.data.footer.link}
+        target="_blank"
+        rel="noopener noreferrer"
+      >{site.data.footer.author}</a>
+    </div>
+  </footer>
+</div>
+
+<style>
+  .footer-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .footer-container::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(-50%);
+    background-color: #ffffff;
+  }
+
+  .footer {
+    width: var(--max-width);
+    padding: 0 var(--padding-x);
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--padding-x);
+    color: var(--text);
+    font-size: var(--font-size);
+  }
+
+  .left,
+  .right {
+    white-space: nowrap;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .right a {
+    color: var(--text-light);
+    text-decoration: none;
+  }
+  .right a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      height: auto;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.25rem;
+      padding-top: var(--padding-y);
+      padding-bottom: var(--padding-y);
+    }
+  }
+</style>
