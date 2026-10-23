@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/vercel": "^11.0.14",
     "astro": "^7.3.8",
     "modern-css-reset": "^1.4.0"
   },
