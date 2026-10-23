@@ -1,0 +1,560 @@
+{
+  "site": {
+    "title": "HMO-Minecraft 岳麓幻境社",
+    "description": "这里是湖南大学的 Minecraft 社团, 与湖南各高校共同构建 MC 高校圈! 本社团下辖 3 大常驻服务器并轮换各种整合包服务器, 满足湖大和各高校 MC 玩家的不同需求. 更有小游戏, 聚餐, 百团大战, 迎新活动等各类线上线下活动等你参与!",
+    "hero": {
+      "title": "HMO-Minecraft 岳麓幻境社",
+      "sublines": [
+        "在像素世界里, 用方块搭建",
+        "岳麓山下的幻境"
+      ],
+      "intros": [
+        "这里是湖南大学的 Minecraft 社团, 与湖南各高校共同构建 MC 高校圈!",
+        "本社团下辖 3 大常驻服务器并轮换各种整合包服务器, 满足湖大和各高校 MC 玩家的不同需求.",
+        "更有小游戏, 聚餐, 百团大战, 迎新活动等各类线上线下活动等你参与!"
+      ]
+    },
+    "footer": {
+      "title": "HMO-Minecraft 岳麓幻境社",
+      "start": 2025,
+      "author": "幻境社技术部",
+      "link": "https://github.com/HMODeveloper"
+    }
+  },
+  "servers": [
+    {
+      "id": "bw",
+      "path": "src/content/server/bw.md",
+      "data": {
+        "name": "bw",
+        "title": "起床服",
+        "intro": "老发聊发少年狂, pvp玩起床, 经典, 也是当年模样. 湖大起床服重启1.8.9版本经典4v4v4v4, 于寒暑假举办HUC起床战争系列赛, 欢迎大家组队报名.",
+        "description": "举办起床战争赛事时使用的服务器.",
+        "cover": "/images/cover.webp",
+        "start": "2025-05-07",
+        "index": 4,
+        "map": null,
+        "address": "bw.hmomc.cn"
+      },
+      "content": "## 服务器介绍\n\n举办起床战争赛事时使用的服务器.\n\n版本: `1.8.8` (建议用 `1.8.9`)"
+    },
+    {
+      "id": "cis",
+      "path": "src/content/server/cis.md",
+      "data": {
+        "name": "cis",
+        "title": "天空厨房",
+        "intro": "天空从来不是极限, 美食也能到达更远的天际! 机械动力的轰鸣中, 农夫仍在天空享有自己的一片田园, 做出更多美食, 天空厨房cook in sky.",
+        "description": "",
+        "cover": "/content/server/cover_cis.webp",
+        "start": "2025-08-28",
+        "end": "2025-10-10",
+        "index": 7,
+        "map": null,
+        "address": null
+      }
+    },
+    {
+      "id": "classic",
+      "path": "src/content/server/classic.md",
+      "data": {
+        "name": "classic",
+        "title": "古典服",
+        "intro": "当现代文明的辉煌隐去, 古典的回声响彻耳畔, ban生电和高频红石之后, 玩家们又将何去何从, 远古的大陆上最早的文明走出了新的乐章.",
+        "description": "湖大古典服是由 Minecraft 岳麓幻境社开设的 Paper 端类原版 Minecraft 服务器, 主要玩法为文明模拟. 服务端版本 1.21.4.",
+        "cover": "/content/server/cover_classic.webp",
+        "start": "2025-04-03",
+        "end": "2026-10-10",
+        "index": 5,
+        "map": "a.hmomc.cn:25571",
+        "address": [
+          "a.classic.hmomc.cn",
+          "b.classic.hmomc.cn"
+        ]
+      },
+      "content": "## 新人须知\n\n湖大古典服是由 Minecraft 岳麓幻境社开设的 `Paper` 端类原版 Minecraft 服务器，主要玩法为 **文明模拟**，服务端版本 `1.21.4`.\n\n我们欢迎大家互相帮助, 交流与讨论.\n\n## 服务器规则\n\n禁止生电玩法.\n\n## 入服指南\n\n> **征集报错信息**\n>\n> 如果你在加入服务器过程中遇到了错误, 欢迎在群里发送截图, 崩溃报告等, 我们会维护一个服务器连接故障修复参考文档.\n\n1. 客户端: Java `1.21.4` 版本, 无指定模组需求.\n2. 登录方式: 仅支持正版验证, 请使用正版账号登录启动客户端.\n3. 加入服务器: 服务器地址详见内部文档.\n\n网页地图: [mc.hmomc.cn:25571](https://mc.hmomc.cn:25571)\n\n> **遇到故障?**\n>\n> 如果你遇到无法连接服务器, 卡顿, 掉线, 打不开网页地图的情况, 可以参考这篇文档尝试解决. 如果仍为解决, 欢迎到群里提问.\n\n## 服务器设置\n\n- 难度: 困难\n- 保留物品栏: 不开启\n- 生物破坏: 开启\n\n## 服务端插件说明\n\n### 插件列表\n\n```\nbluemap-5.7-spigot // 网页地图\nKingdomsX-1.17.10-BETA // 王国系统\nLuckPerms-Bukkit-5.4.145 // 权限管理\nQuickShop-Hikari-6.2.0.9-RELEASE-1 // 商店\nTNE-Paper-0.1.3.5-Release-1 // 经济插件\nspark-1.10.119-bukkit // 分析性能\nVaultUnlocked-2.10.0 // 经济插件\n```\n\n### KingdomsX 王国系统\n\n- `/k language 汉语` 切换汉语.\n- `/k` 查看帮助.\n\n### QuickShop Hikari 简易商店\n\n放出一个箱子, 拿着你想出售(或者收购)的物品, 左键单击, 按提示操作即可.\n\n## 最后\n\n关于文档的任何问题, 欢迎在群中反馈."
+    },
+    {
+      "id": "gaj",
+      "path": "src/content/server/gaj.md",
+      "data": {
+        "name": "gaj",
+        "title": "伟大工程",
+        "intro": "",
+        "description": "",
+        "cover": "/images/cover.webp",
+        "start": "2025-12-14",
+        "end": "2026-02-01",
+        "index": 4,
+        "map": null,
+        "address": [
+          "a.gaj.hmomc.cn",
+          "b.gaj.hmomc.cn"
+        ]
+      }
+    },
+    {
+      "id": "game",
+      "path": "src/content/server/game.md",
+      "data": {
+        "name": "game",
+        "title": "小游戏服",
+        "intro": "幻境社1.21.11原版小游戏派对服务器！拉上三五好友一起来小游戏的世界里畅玩吧！",
+        "description": "常开的小游戏服务器",
+        "cover": "/content/server/cover_game.webp",
+        "start": "2025-08-31",
+        "index": 3,
+        "map": null,
+        "address": [
+          "game.hmomc.cn"
+        ]
+      },
+      "content": "## 服务器介绍\n\n版本: `1.21.11`"
+    },
+    {
+      "id": "origin",
+      "path": "src/content/server/origin.md",
+      "data": {
+        "name": "origin",
+        "title": "起源服",
+        "intro": "以生电, 建造玩法为核心, 生电佬交流中心, 社团重要线上活动举办地, 社团早期文化遗产圣地, 现已进入老年期.",
+        "description": "湖大起源服是由 Minecraft 岳麓幻境社开设的 Purpur 端类原版 Minecraft 服务器, 主要玩法为生存与建筑, 服务端版本 26.2.",
+        "cover": "/content/server/cover_origin.webp",
+        "start": "2025-02-06",
+        "index": 2,
+        "map": null,
+        "address": [
+          "origin.hmomc.cn"
+        ]
+      },
+      "content": "## 新人须知\n\n湖大起源服是由 Minecraft 岳麓幻境社开设的 `Purpur` 端类原版 Minecraft 服务器, 主要玩法为 **生存与建筑**, 服务端版本 `26.2`.\n\n我们欢迎大家互相帮助, 交流与讨论.\n\n## 服务器规则\n\n## 入服指南\n\n> **征集报错信息**\n>\n> 如果你在加入服务器过程中遇到了错误, 欢迎在群里发送截图, 崩溃报告等, 我们会维护一个服务器连接故障修复参考文档.\n\n1. 客户端: Java `26.2` 版本, 无指定模组需求.\n2. 登录方式: 支持正版验证与MUA验证.\n3. 加入服务器: 服务器地址详见上文.\n\n> **遇到故障?**\n>\n> 如果你遇到无法连接服务器, 卡顿, 掉线, 打不开网页地图的情况, 可以参考这篇文档尝试解决. 如果仍为解决, 欢迎到群里提问.\n\n## 服务器设置\n\n- 跳过夜晚仅需一人睡觉\n- 难度: 困难\n- 保留物品栏: 不开启\n- 生物破坏: 开启\n- 种子: 5076036733988069176\n\n## 服务端插件说明\n\n### 插件列表\n\n```\nPurpur 插件：\nCommandAPI-10.0.1 // 印象里好像是假人的前置\nEssentialsX-2.21.0 // 实用命令\nfakeplayer-0.3.13 // 假人\nGSit-2.2.1 // 动作\nLuckPerms-Bukkit-5.4.145 // 权限管理\nminimotd-bukkit-2.1.3 // 自定义 MOTD\nspark-1.10.119-bukkit // 分析性能\ntabtps-spigot-1.3.25 // 监测性能\nvoicechat-bukkit-2.5.26 // 语音聊天\n\n```\n\n### EssentialsX 实用命令\n\n| 指令              | 说明                        |\n| ----------------- | --------------------------- |\n| /back             | 传送你至先前的位置.         |\n| /home [名称]      | 传送到家的位置              |\n| /sethome [名称]   | 设置家(注意, 家数量最大为5) |\n| /delhome [名称]   | 删除家                      |\n| /warp [名称]      | 传送到地标                  |\n| /tpa [player]     | 请求传送到玩家              |\n| /tpahere [player] | 请求玩家传送到你            |\n| /tpaccept         | 接受传送请求                |\n| /tpdeny           | 拒绝传送请求                |\n\n### fakeplayer 假人\n\n用法详见 [Modrinth](https://modrinth.com/plugin/fakeplayer).\n\n给到的权限节点:\n\n```\nfakeplayer.spawn\nfakeplayer.tp\nfakeplayer.action\n```\n\n每个玩家能创建两个假人, 不跟随下线.\n\n### PrimeBackup 备份\n\n每4小时备份一次, 每3小时尝试进行一次清理.\n\n### GSit 动作\n\n- `/sit` 坐下, `/crawl` 爬行.\n- 右键楼梯, 台阶等方块可以坐在上面.\n- 右键其他玩家可以跳上并骑乘其他玩家.\n\n### TabTPS 监测性能\n\n`/tabtps toggle [三种可选模式]` 监测TPS, MSPT等.\n\n`/tabtps:mspt` 查看服务器刻信息. 如果提示没有权限: 恭喜你, 那就是我忘了开, 可以群里提醒一下.\n\n## 数据包说明\n\n### Safe Creeper 苦力怕防爆地形\n\n苦力怕, 闪电苦力怕爆炸将 **不会破坏地形**, 爆炸伤害不变.\n\n## 最后\n\n关于文档的任何问题, 欢迎在群中反馈."
+    },
+    {
+      "id": "rebuild",
+      "path": "src/content/server/rebuild.md",
+      "data": {
+        "name": "rebuild",
+        "title": "复建服",
+        "intro": "你心中的大学是什么样子? 我想...复建属于我们的湖南大学! 幻境社复建部专属服务器, 24h不间断营业, 工期密排ing!",
+        "description": "",
+        "cover": "/content/server/cover_rebuild.webp",
+        "start": "2025-04-15",
+        "end": "2026-10-10",
+        "index": 8,
+        "map": null,
+        "address": [
+          "a.creative.hmomc.cn",
+          "b.creative.hmomc.cn"
+        ]
+      }
+    },
+    {
+      "id": "sd",
+      "path": "src/content/server/sd.md",
+      "data": {
+        "name": "sd",
+        "title": "生存乐事",
+        "intro": "肝不动复杂的整合包, 简单的mod + 原版体验更加适合你! 超多生物群系, 农夫乐事及大量附属, 还有原版生存体验, 这是岳麓幻境社的招牌服务器!",
+        "description": "",
+        "cover": "/content/server/cover_sd.webp",
+        "start": "2025-08-29",
+        "end": "2026-10-10",
+        "index": 2,
+        "map": "a.hmomc.cn:25585",
+        "address": [
+          "a.survival-delight.hmomc.cn",
+          "b.survival-delight.hmomc.cn"
+        ]
+      }
+    },
+    {
+      "id": "wd",
+      "path": "src/content/server/wd.md",
+      "data": {
+        "name": "wd",
+        "title": "幻境初启",
+        "intro": "幻境社原创整合包！在这里，你可以种田养老、探索战斗或者是研究科技，详尽的任务流程，即使是刚入坑的小登也可以有良好的游戏体验！正如整合包名字所言，希望这里可以成为你踏入幻境社的第一步！",
+        "description": "",
+        "cover": "/content/server/cover_wd.webp",
+        "start": "2026-09-25",
+        "index": 1,
+        "map": "www.arrowmc.top/neomap",
+        "address": [
+          "wayfare.hmomc.cn"
+        ]
+      }
+    }
+  ],
+  "dynamics": [
+    {
+      "id": "20250329-1",
+      "path": "src/content/dynamic/20250329-1.md",
+      "data": {
+        "date": "2025-03-29",
+        "index": 1,
+        "title": "社团第一次会议",
+        "description": "社团成员冒雨参加第一次社团会议.",
+        "cover": "/content/dynamic/cover_20250329-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "Nya_Twisuki"
+        ]
+      },
+      "content": "3月29日, 社团成员冒雨参加第一次社团会议."
+    },
+    {
+      "id": "20250517-1",
+      "path": "src/content/dynamic/20250517-1.md",
+      "data": {
+        "date": "2025-05-17",
+        "index": 1,
+        "title": "社团第二次会议",
+        "description": "社长与现在幻境社老成员再次开社团会议, 谈及社内现状, 决定革新.",
+        "cover": "/content/dynamic/cover_20250517-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "Nya_Twisuki"
+        ]
+      },
+      "content": "5月17日, 社长与现在幻境社老成员再次开社团会议, 谈及社内现状, 决定革新."
+    },
+    {
+      "id": "20250709-1",
+      "path": "src/content/dynamic/20250709-1.md",
+      "data": {
+        "date": "2025-07-09",
+        "index": 1,
+        "title": "生活大冒险整合包服务器开服",
+        "description": "",
+        "cover": "/content/dynamic/cover_20250709-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "DDafina"
+        ]
+      },
+      "content": "7月9日, **生活大冒险** 整合包的服务器开服."
+    },
+    {
+      "id": "20250714-1",
+      "path": "src/content/dynamic/20250714-1.md",
+      "data": {
+        "date": "2025-07-14",
+        "index": 1,
+        "title": "巧克力服务器开服",
+        "description": "\"Chocolate Edition Minecraft\" 整合包服务器开服.",
+        "cover": "/content/dynamic/cover_20250714-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "Nya_Twisuki"
+        ]
+      },
+      "content": "7月14日, **\"Chocolate Edition Minecraft\"** 整合包服务器开服."
+    },
+    {
+      "id": "20250721-1",
+      "path": "src/content/dynamic/20250721-1.md",
+      "data": {
+        "date": "2025-07-21",
+        "index": 1,
+        "title": "整合包服务器新发展",
+        "description": "\"Chocolate Edition Minecraft\" 整合包服务器遗憾关服, 与此同时 \"Better MC\" 整合包的服务器开服.",
+        "cover": "/content/dynamic/cover_20250721-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "DDafina"
+        ]
+      },
+      "content": "7月21日, **\"Chocolate Edition Minecraft\"** 整合包服务器遗憾关服, 与此同时 **\"Better MC\"** 整合包的服务器开服."
+    },
+    {
+      "id": "20250724-1",
+      "path": "src/content/dynamic/20250724-1.md",
+      "data": {
+        "date": "2025-07-24",
+        "index": 1,
+        "title": "\"脆骨症\"整合包服务器开服",
+        "description": "",
+        "cover": "/content/dynamic/cover_20250724-1.webp",
+        "authors": [
+          "fengheyunshang",
+          "DDafina"
+        ]
+      },
+      "content": "7月24日, **\"脆骨症\"** 整合包服务器开服."
+    },
+    {
+      "id": "20250728-1",
+      "path": "src/content/dynamic/20250728-1.md",
+      "data": {
+        "date": "2025-07-28",
+        "index": 1,
+        "title": "起床战争系列比赛开赛",
+        "description": "起床战争开赛, 社内大乱斗.",
+        "cover": "/images/cover.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "7月28日 - 31日起床战争开赛, 社内大乱斗.\n\n社员们积极报名, 组成了四支队伍, 进行激烈的角逐.\n\n最后以 **\"爱你没差\"** 队夺冠, **\"请输入文本\"** 队夺亚, **\"海底小纵队\"** 夺季, **\"大喷灵感菇\"** 夺殿落下帷幕."
+    },
+    {
+      "id": "20250903-1",
+      "path": "src/content/dynamic/20250903-1.md",
+      "data": {
+        "date": "2025-09-03",
+        "index": 1,
+        "title": "生存乐事整合包服务器开服",
+        "description": "\"生存乐事 -- Survival Delight\" 整合包服务器开服.",
+        "cover": "/content/dynamic/cover_20250903-1.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "9月3日, **\"生存乐事 -- Survival Delight\"** 整合包服务器开服."
+    },
+    {
+      "id": "20250908-1",
+      "path": "src/content/dynamic/20250908-1.md",
+      "data": {
+        "date": "2025-09-08",
+        "index": 1,
+        "title": "岳麓幻境的准备工作再上新台阶",
+        "description": "社长开始统计社员信息, 与社团档案建立在一起, 为建社做准备.",
+        "cover": "/images/cover.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "9月8日, 社长开始统计社员信息, 与社团档案建立在一起, 为建社做准备."
+    },
+    {
+      "id": "20250926-1",
+      "path": "src/content/dynamic/20250926-1.md",
+      "data": {
+        "date": "2025-09-26",
+        "index": 1,
+        "title": "迎新大会",
+        "description": "",
+        "cover": "/content/dynamic/cover_20250926-1.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "9月26日, 举办迎新大会.\n\n迎新大会在复临舍举行, 近百人参加. 会上欢迎新社员, 社员们踊跃参与, 毛遂自荐发言获我的世界周边.\n\n同时介绍社团组成与规划, 介绍各部门负责人, 为拓境的创立招收新人.\n\n并拍下了 **\"大盒照\"**, 收录在群相册里."
+    },
+    {
+      "id": "20251002-1",
+      "path": "src/content/dynamic/20251002-1.md",
+      "data": {
+        "date": "2025-10-02",
+        "index": 1,
+        "title": "建社之际, 预招收社员为干事",
+        "description": "",
+        "cover": "/images/cover.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "岳麓幻境社的体量日益增长, 管理相关问题逐渐显化, 社长开始\"微服私访\", 招收能人异士进入拓境."
+    },
+    {
+      "id": "20251027-1",
+      "path": "src/content/dynamic/20251027-1.md",
+      "data": {
+        "date": "2025-10-27",
+        "index": 1,
+        "title": "正式建社",
+        "description": "正式公布建社信息",
+        "cover": "/images/cover.webp",
+        "authors": [
+          "fengheyunshang",
+          "Nya_Twisuki"
+        ]
+      },
+      "content": "继9月27日进行建社答辩未果后, 社长经过不懈努力与学校接触, 最终在10月24日通过了答辩, 得到了成为湖南大学正式社团的许可, 并在10月27日正式公布建社信息."
+    },
+    {
+      "id": "20251109-1",
+      "path": "src/content/dynamic/20251109-1.md",
+      "data": {
+        "date": "2025-11-09",
+        "index": 1,
+        "title": "2025百团大战",
+        "description": "建社后的第一次百团活动.",
+        "cover": "/content/dynamic/cover_20251109-1.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "11月9日, 湖南大学迎来了2025年的百团大战. 作为新成立的社团, **HMO - Minecraft 岳麓幻境社** 积极参与了此次盛会.\n\n1. 7:00 冒雨整理礼品\n2. 8:30 完成摊位装饰\n   ![摊位](/content/dynamic/20251109-1_stall.webp){width=50%}\n3. 9:30 百团大战正式启动\n4. 12:30-14:30 休息, 准备下午招新\n5. 17:30 百团大战结束, 剩余负责人合照\n   ![合照](/content/dynamic/20251109-1_group.webp){width=50%}\n\n百团当天, 安排了以下活动:\n\n- `《我的世界》` 知识问答\n  ![知识问答活动](/content/dynamic/20251109-1_activity.webp){width=50%}\n- 游戏周边礼品发放\n- 新生入群引导\n- 拓境团吧唧发放\n  ![拓境团吧唧发放](/content/dynamic/20251109-1_badge.webp){width=50%}\n- 社长我的世界角色大头来吸引新生\n  ![\"社长\"](/content/dynamic/20251109-1_head.webp){width=50%}\n\n正是由于多元化的活动, 我们得以不断收录新人, 幻境群人数一度高达 **700**, 而且群活跃冲破 **300**大关."
+    },
+    {
+      "id": "20260101-1",
+      "path": "src/content/dynamic/20260101-1.md",
+      "data": {
+        "date": "2026-01-01",
+        "index": 1,
+        "title": "2026年元旦晚会",
+        "description": "2026年元旦晚会",
+        "cover": "/content/dynamic/cover_20260101-1.webp",
+        "authors": [
+          "Nya_Twisuki, fengheyunshang"
+        ]
+      },
+      "content": "2026年1月1日, 社团在 [生存乐事服务器](/server/sd) 和 [伟大工程巡礼服务器](/server/gaj) 举办了元旦晚会, 庆祝新年的到来.\n\n生存乐事服务器修建了新基地: \"活动广场\", 在下面布置了 **HNU** 字样的烟花表演, 并在周围建造了若干建筑, 雕塑, 以及背后巨大的爱心样信标光柱.\n\n![元旦广场](/content/dynamic/20260101-1_square.webp){width=50%}\n\n![烟花表演](/content/dynamic/20260101-1_fireworks.webp){width=50%}\n\n由于准备时间较为紧迫, 乐事服活动以拍照和大乱斗为主, 后半段活动由巡礼服开展.\n\n巡礼服主要活跃人员带领众多社员参观服务器, 并解释各种机器相关用途, 举行了 **找不同** 小游戏.\n\n![巡礼服合影](/content/dynamic/20260101-1_gaj.webp){width=50%}\n\n最终通过核电的失误, 借 `核电, 轻而易举` 的梗, 结束了本次活动, 点燃了2026开年最大的烟花."
+    },
+    {
+      "id": "20260103-1",
+      "path": "src/content/dynamic/20260103-1.md",
+      "data": {
+        "date": "2026-01-03",
+        "index": 1,
+        "title": "元旦起床比赛",
+        "description": "社团第二次正式的起床比赛",
+        "cover": "/content/dynamic/cover_20260103-1.webp",
+        "authors": [
+          "fengheyunshang"
+        ]
+      },
+      "content": "警告一个多月的组织筹备和小组训练, 12月31日, 第二次起床比赛小组赛正式开始.\n\n![赛程安排](/content/dynamic/20260103-1_arrangement.webp){width=50%}\n\n经过几天激烈的比赛, 最终以 **不要打我们队** 摘金, **菇菇嘎嘎** 夺银, **千早爱音天下第一队** 季军, **天空厨房蛋糕批发队** 殿军兼人气奖圆满结束."
+    },
+    {
+      "id": "20260211-1",
+      "path": "src/content/dynamic/20260211-1.md",
+      "data": {
+        "date": "2026-02-11",
+        "index": 1,
+        "title": "公告",
+        "description": "幻境社活动处分",
+        "cover": "/images/cover.webp",
+        "authors": [
+          "mianbi2022"
+        ]
+      },
+      "content": "`TQPquestion` 于Minecraft岳麓幻境社参与文明模拟活动期间消极比赛, 我方沟通交流未果.\n\n其行为系个人行为并本人非地大MC社正式社员, 我社按照社会人士处理要求对其进行以下处分:\n\n永久禁止其参与Minecraft岳麓幻境社的相关活动."
+    },
+    {
+      "id": "20260924-1",
+      "path": "src/content/dynamic/20260924-1.md",
+      "data": {
+        "date": "2026-09-24",
+        "index": 1,
+        "title": "幻境社新周目——幻境初启即将开启！",
+        "description": "新周目预告",
+        "cover": "/content/dynamic/cover_20260924-1.webp",
+        "authors": [
+          "Mikazsuki"
+        ]
+      },
+      "content": "经过各位整合包作者几天的开发，我们决定将在**9月25日**开启HMO新一轮周目！欢迎各位无论老登还是小登都可以在幻境初启中找到你的位置！\n![概念图](/content/dynamic/20260924-1_wayfares.webp){width=50%}"
+    },
+    {
+      "id": "20261012-1",
+      "path": "src/content/dynamic/20261012-1.md",
+      "data": {
+        "date": "2026-10-12",
+        "index": 1,
+        "title": "HMO岳麓幻境社新手指南",
+        "description": "稍微有点长的文字教程",
+        "cover": "/content/dynamic/cover_20261012-1.webp",
+        "authors": [
+          "Mikazsuki"
+        ]
+      },
+      "content": "> **导读**：本文专为初次接触《我的世界》Java版（Minecraft Java Edition，简称 MCJE）的新手玩家编写。文章将以国内广泛使用的 **PCL2（Plain Craft Launcher 2）** 启动器为例，从**核心认知辨析**、**环境准备**、**账号登录（正版与 MUA 联合认证）**、**客户端下载配置**到**最终进入多人服务器**进行全流程手把手教学。\n\n## 一、【核心认知】为什么“启动器 ≠ 游戏本身”？（必读扫盲）\n\n很多刚接触 Minecraft PC 端的新手，常常会说出类似这样的话：\n\n> _“我玩的是 PCL2 最新版，请问怎么和网易版联机？”_  \n> _“我的游戏是 Java 17 版，这跟 1.17 是一回事吗？”_  \n> _“卸载了 PCL2，我的游戏是不是就被删了？”_\n\n这些疑问源于对 **启动器、Java 环境、游戏本体、模组加载器** 关系的混淆。要想顺畅玩游戏，首先必须厘清这套软件架构。\n\n### 1.1 MC 运行的“四层架构”解构\n\n1. **Java 运行环境（Java Runtime Environment, JRE）**：\n   - Minecraft Java 版是由 Java 语言编写的程序，计算机无法直接执行 `.jar` 字节码，必须依赖 Java 虚拟机（JVM）运行。它是**运行底座**。\n2. **游戏本体（Minecraft Client）**：\n   - 由游戏开发商 Mojang 官方发布的客户端核心（如 `1.12.2`、`1.16.5`、`1.20.4`、`1.21`）。包含游戏所有原版方块、生物、机制与资产文件。这才是真正的“游戏”。\n3. **模组加载器（Mod Loader，如 Fabric、Forge、NeoForge）**：\n   - 挂载在游戏本体之上的扩展框架，负责读取玩家放入的各类 Mod（如小地图、优化模组、更多机械等）。\n4. **启动器（Launcher，如 PCL2、HMCL、Prism Launcher）**：\n   - 启动器**不是游戏，它只是一个“启动管家/调度软件”**。\n   - 它的核心职责是：帮你从官方/镜像源下载游戏文件、管理你的登录凭证、配置分配多少内存，并在你点击“启动”时，**拼装出一行指令启动 Java 来运行游戏**。一旦游戏窗口弹出来，启动器的使命其实就已经完成了，你甚至可以立即关掉 PCL2，游戏仍然在正常运行。\n\n---\n\n### 1.2 新手三大经典概念误区纠正\n\n> ❌ **误区一：“我玩的是 PCL2 版本 / 我找的是 PCL2 版的服务端”**  \n> **真相**：世界上根本不存在“PCL2 版游戏”。PCL2 只是开发者“龙腾猫跃”制作的一款启动工具（PCL2 自身的版本号如 2.8.x）。你实际玩的是 **Minecraft 1.20.1 / 1.21 等官方版本**。问别人“这个服支持 PCL2 吗”就像问“我的显示器能放 MP4 视频吗”一样，只要版本对、网络通，任何合法启动器启动的对应 MC 客户端都能进服。\n>\n> ❌ **误区二：“Java 17 就是 Minecraft 1.17”**  \n> **真相**：完全不是一个概念！\n>\n> - **Java 17** 是 Oracle / Eclipse 等维护的编程语言运行环境版本（2021 年发布）。\n> - **Minecraft 1.17** 是游戏的一个更新代号（洞穴与山崖第一部分）。\n>\n> ❌ **误区三：“PCL2 就是盗版游戏软件”**  \n> **真相**：PCL2 本身是一款开源/免费的通用第三方启动器，它不仅支持**微软官方正版账号登录**，也支持**第三方外置验证**(如 MUA 高校联盟)与离线模式。是否拥有正版取决于你的账号状态，而不是启动器。\n\n---\n\n## 二、前期准备：启动器与运行环境\n\n### 2.1 获取 PCL2 启动器\n\n1. **官方下载途径**：\n   - 请认准作者（龙腾猫跃）发布的官方渠道爱发电，除此之外均为钓鱼链接！ 可以从这里快速进入 **[PCL 正式版下载](https://afdian.com/p/0164034c016c11ebafcb52540025c377)** 。\n   - **切勿在百度搜索前列的未知下载站/软件园下载**，以防被植入流氓弹窗、挖矿程序或旧版木马。\n2. **免安装与放置规范**：\n   - PCL2 通常为单个可执行文件（`Plain Craft Launcher 2.exe`）。\n   - **强烈建议**：不要直接在“桌面”或“微信接收文件夹”直接双击运行！新建一个全英文/无特殊字符的目录（如 `D:\\Games\\Minecraft\\`），将 PCL2 放入其中再运行。PCL2 会默认在同级目录下创建 `.minecraft` 文件夹存放游戏核心与存档。\n\n---\n\n### 2.2 搞懂 Java 运行环境（JRE）\n\n根据你想游玩的 Minecraft 版本，需要准备对应的 Java 版本：\n\n| 游戏版本范围                                 | 推荐 Java 版本       | 备注                        |\n| :------------------------------------------- | :------------------- | :-------------------------- |\n| **1.16.5 及更低**（如经典的 1.7.10、1.12.2） | **Java 8 (JRE 1.8)** | 老版本 Mod 生态最成熟的环境 |\n| **1.17.x**                                   | **Java 16**          | 过渡版本                    |\n| **1.18.x - 1.20.4**                          | **Java 17**          | 目前主流现代模组服环境      |\n| **1.20.5 - 1.21.11**                         | **Java 21**          | 常用的长期支持版本          |\n| **26.x 及更高**                              | **Java 25**          | 最新的长期支持版本          |\n\n> 新版 PCL2 拥有完善的 **Java 自动检测与下载** 功能。如果你电脑上没有装 Java，在首次启动游戏时，PCL2 会弹出提示并允许你一键自动下载适配的 Java（如 Temurin / Zulu JDK），新手直接点击自动安装即可，无需手动配置复杂的系统环境变量。\n\n---\n\n## 三、账号体系与登录配置（正版 vs MUA）\n\n岳麓幻境社所有服务器都支持**正版验证**和**MUA验证**两种账号验证方式：\n\n在 PCL2 界面中，点击左侧或首页的 **账号头像/名称区域** 即可打开账号管理面板。\n\n---\n\n### 3.1 方式 A：微软正版登录（Microsoft）\n\n如果你尚未购买正版账号，可以点击 **[此处](https://www.bilibili.com/video/BV1ta4y1R7Hy/)** 观看籽岷的视频并尝试购买。购买完毕后请直接在启动器内进行登录操作即可！\n\n> 微软登录需要稳定的国际互联网连接。若登录页面提示网络超时或白屏，可尝试开启网络加速器（针对登录加速）或暂时调整 DNS。\n\n---\n\n### 3.2 方式 B：MUA 高校联盟联合认证登录（外置登录）\n\n#### 什么是 MUA 与 Authlib-Injector？\n\n- **MUA（Minecraft University Alliance）** 是中国高校 Minecraft 爱好者共同组建的联盟。高校服务器为了兼顾安全与非微软正版玩家的体验，采用了一套基于社区开源标准 **authlib-injector（Yggdrasil API 外置登录协议）** 的统一验证机制。\n- 它就像是高校联动的“独立官方登录服务器”。服务器服主开启验证后，可以杜绝假人冒充攻击、确保玩家身份与学生认证绑定，并支持玩家在网页端上传自定义披风与皮肤。\n\n#### 详细配置步骤：\n\n1. **注册与认证账号**：\n   - 若尚未注册HNU专用邮箱，请打开**湖南大学个人门户**，找到**校园网业务**，其中包含注册教育邮箱的入口。\n   - 访问 **[MUA 皮肤站/用户中心](https://skin.mualliance.ltd/)**，并使用你刚创建的教育邮箱注册账号。\n   - 在皮肤站中配置你想要的游戏角色名（Username）和相关外观设置。\n\n2. **在 PCL2 中配置外置登录服务器**：\n   - 进入 **[MUA 皮肤站/用户中心](https://skin.mualliance.ltd/)**，在主页找到**快速配置启动器**一栏，按要求完成即可。\n\n3. **输入凭证并登录**：\n   - 在弹出的登录框中，输入你在 **MUA 皮肤站注册的邮箱（或账号）** 和 **密码**。\n   - 验证通过后，PCL2 会成功拉取你在 MUA 皮肤站配置的游戏角色名字与头像。\n   - 勾选该 MUA 账号为当前使用账号。\n\n> 1. MUA 皮肤站的密码请勿设置为与你的微软/邮箱相同的敏感密码。\n> 2. MUA 账号仅可在接入了 MUA 联合验证的特定服务器中生效，无法用于直接进入 Hypixel 等官方纯正版验证外服。\n\n---\n\n### 3.3 补充：离线登录（本地测试）\n\n- **适用场景**：家庭局域网联机、纯离线未开启鉴权的小型服或本地单人模式。\n- **配置方法**：在 PCL2 添加账号时选择“离线登录”，任意输入一个英文字符的角色名即可。但切记离线账号进服将会被直接踢出。\n\n---\n\n## 四、下载并配置游戏客户端\n\n在进服前，请确认游玩的是哪一个服务器，一般可按下面要求筛选：\n\n1. **游戏版本**（例如 `1.20.1` 还是 `1.20.4`）。\n2. **模组要求**（是纯净原版进服，还是必须安装特定的整合包 / 核心）。\n3. **加载器类型**（原版 Vanilla、Fabric、Forge、NeoForge）。\n\n---\n\n### 4.1 下载纯净原版客户端\n\n如果服务器是纯净服（或者允许原版直连）：\n\n1. 在 PCL2 主界面点击顶部的 **下载** 选项卡。\n2. 左侧点击 **游戏客户端**。\n3. 在“正式版”列表中找到目标版本（例如 `1.20.4`）。\n4. （可选）如果你需要优化模组（如 Fabric + 钠 Sodium）或光影，可以在下方勾选安装 **Fabric**。对于新手，若服务器未硬性要求模组，建议先选择“原版”体验。\n5. 点击 **开始安装**，PCL2 会自动多线程下载本体文件、游戏资源与依赖运行库。\n\n---\n\n### 4.2 安装整合包\n\n最简单的方法是下载群内提供的整合包后直接将其拖入启动器窗口，启动器会自动下载游戏并补全相关文件。\n\n---\n\n### 4.3 开启“版本隔离”（新手强烈建议！）\n\n这是 PCL2 最实用的核心功能之一：\n\n1. 在 PCL2 中点击 **版本选择**，选中你刚下载的游戏版本，点击 **更多** -> **版本设置**。\n2. 找到 **版本隔离** 选项，选择 **“各版本独立隔离”**（或“单独文件夹”）。\n\n> #### 为什么要版本隔离？\n>\n> 如果不开启版本隔离，所有版本的存档（Saves）、模组（Mods）、按键设置（Options）都会混杂在同一个 `.minecraft` 根目录下。当你今天玩 1.12.2、明天玩 1.20.4 时，高低版本的 Mod 和材质包会相互冲突，导致游戏直接崩溃！开启隔离后，每个版本拥有完全独立的文件夹，互不干扰。\n\n---\n\n### 4.4 内存分配与 JVM 设置\n\n1. 进入 **设置** -> **Minecraft 设置**。\n2. **运行内存分配**：\n   - 纯净原版（1.16+）：建议分配 **4096 MB (4 GB)**。\n   - 带有轻度模组/高清材质包：建议分配 **6144 MB - 8192 MB (6-8 GB)**。\n   - **注意**：切勿将系统所有物理内存全部分配给游戏（例如电脑共 16G 内存，不要分超过 10G），否则会导致 Windows 系统资源枯竭反向造成游戏掉帧或卡死。\n\n---\n\n## 五、启动游戏并进入多人服务器\n\n一切就绪后，迎接入服的关键步骤！\n\n### 5.1 启动游戏与首次检查\n\n1. 回到 PCL2 首页，检查面板下方：\n   - **版本**：是否已选中服务器要求的版本？\n   - **账号**：是否已选中配置好的“正版账号”或“MUA 账号”？\n2. 点击绿色的 **启动游戏** 按钮。\n3. 耐心等待片刻，Minecraft 游戏窗口顺利弹出并加载至主界面。\n\n---\n\n### 5.2 添加服务器与连接进服\n\n1. 在游戏主界面点击 **多人游戏（Multiplayer）**。\n   - _（首次进入可能会弹出第三方联机免责声明，勾选“不再显示”并点击“继续”即可）_。\n2. 点击右下方的 **添加服务器（Add Server）**：\n   - **服务器名称**：仅供本地识别，可随意填写（如“幻境社服务器”）。\n   - **服务器地址（Server Address）**：准确粘贴提供的地址（例如 `mc.example.com` 或带端口的 `123.45.67.89:25565`）。\n3. 点击 **完成（Done）** 保存。\n4. 在服务器列表中找到刚才添加的服务器，观察信号条与延迟：\n   - 显示绿色信号灯并提示在线人数：说明网络连通。\n   - 点击该服务器条目，点击 **加入服务器（Join Server）**。\n\n---\n\n### 5.3 常见进服报错与排错自查表\n\n如果在进服时被断开连接并弹出英文报错，请对照下表对号入座排查：\n\n| 错误提示 (英文/中文)                                                         | 核心原因                                                           | 解决办法                                                                                              |\n| :--------------------------------------------------------------------------- | :----------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------- |\n| **Failed to verify username!**<br>（无法验证用户名！）                       | 账号模式与服务器不匹配。服务器开启了验证，而你使用了离线登录模式。 | 检查 PCL2 当前勾选的账号。若是正版服，切换为微软账号；若是 MUA 服，切换为配置了 authlib 的 MUA 账号。 |\n| **Invalid session (Try restarting your game)**<br>（无效的会话，请重启游戏） | 登录令牌（Token）已过期或被多处踢出。                              | 在 PCL2 中重新登录一次微软/MUA账号，重启客户端后再试。                                                |\n| **Incompatible client! Please use ...**<br>（客户端版本不匹配）              | 你启动的游戏核心版本与服务器要求的版本不一致。                     | 返回 PCL2，重新下载服务器要求的准确游戏版本（注意大版本和小版本，如 1.20.1 与 1.20.4 不互通）。       |\n| **You are not whitelisted on this server!**<br>（你不在服务器白名单中）      | 服务器开启了进服白名单限制。                                       | 联系服务器服主/管理员，报上你的角色名（ID）申请登记加入白名单。                                       |\n| **Connection refused: connect / Timed out**<br>（连接被拒绝 / 连接超时）     | 网络不通，或服务器地址写错了，或者服务器正在关机维护。             | 1. 检查服务器 IP 与端口有无拼写错误；<br>2. 询问管理员服务器是否在线；<br>3. 检查自身网络代理设置。   |\n| **Mod rejections / Missing mods**<br>（模组不匹配 / 缺少模组）               | 目标是模组（Mod）服，你使用了纯净客户端直接进服。                  | 向服主索取服务器专用的完整**整合包（Modpack）**，通过 PCL2 导入整合包后再进入。                       |\n\n---\n\n## 六、遇到问题时求助的正确方式\n\n为了更好的了解错误原因，请您在群内求助前确认您可以清晰地描述问题并向管理提供包括但不限于崩溃日志或问题截图，请尽量不要使用拍屏的方式，感谢您的配合！"
+    }
+  ],
+  "covers": [
+    {
+      "url": "/content/cover/origin_yuelu-academy.webp",
+      "server": "origin",
+      "description": "岳麓书院"
+    },
+    {
+      "url": "/content/cover/origin_pagoda.webp",
+      "server": "origin",
+      "description": "庙塔一隅"
+    },
+    {
+      "url": "/content/cover/origin_chairman-mao.webp",
+      "server": "origin",
+      "description": "教员雕像"
+    },
+    {
+      "url": "/content/cover/origin_town.webp",
+      "server": "origin",
+      "description": "古镇"
+    },
+    {
+      "url": "/content/cover/origin_sail.webp",
+      "server": "origin",
+      "description": "归帆残阳"
+    },
+    {
+      "url": "/content/cover/origin_activity-hall.webp",
+      "server": "origin",
+      "description": "活动大厅"
+    },
+    {
+      "url": "/content/cover/classic_eva.webp",
+      "server": "classic",
+      "description": "EVA"
+    },
+    {
+      "url": "/content/cover/classic_star-city.webp",
+      "server": "classic",
+      "description": "繁星之城"
+    },
+    {
+      "url": "/content/cover/sd_mooncake-island.webp",
+      "server": "sd",
+      "description": "月饼岛"
+    },
+    {
+      "url": "/content/cover/sd_cyan-island.webp",
+      "server": "sd",
+      "description": "倾岛温迪雕塑"
+    },
+    {
+      "url": "/content/cover/sd_new-hana.webp",
+      "server": "sd",
+      "description": "花名新村"
+    },
+    {
+      "url": "/content/cover/sd_line1.webp",
+      "server": "sd",
+      "description": "轨道交通一号线"
+    },
+    {
+      "url": "/content/cover/sd_line1-acacia.webp",
+      "server": "sd",
+      "description": "一号线合欢镇站"
+    },
+    {
+      "url": "/content/cover/sd_cake-castle.webp",
+      "server": "sd",
+      "description": "符拉迪榭维列"
+    },
+    {
+      "url": "/content/cover/rebuild_intersection.webp",
+      "server": "rebuild",
+      "description": "路口"
+    },
+    {
+      "url": "/content/cover/rebuild_red.webp",
+      "server": "rebuild",
+      "description": "红楼"
+    },
+    {
+      "url": "/content/cover/rebuild_library.webp",
+      "server": "rebuild",
+      "description": "图书馆"
+    },
+    {
+      "url": "/content/cover/cis_main.webp",
+      "server": "cis",
+      "description": "工业区"
+    }
+  ],
+  "updated": "2026-10-23T17:17:21.760Z"
+}
