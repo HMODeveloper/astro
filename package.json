@@ -14,7 +14,8 @@
     "astro": "astro",
     "check": "astro check",
     "lint": "eslint",
-    "fix": "eslint --fix"
+    "fix": "eslint --fix",
+    "tag": "node scripts/tag.js"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
