@@ -5,7 +5,6 @@ export interface ServerStatusQuery {
 export interface ServerStatusPlayer {
   name: string
   uuid: string
-  avatar_url: string
 }
 
 export interface ServerStatusResponse {
@@ -13,12 +12,7 @@ export interface ServerStatusResponse {
   host: string
   port: number
   latency: number
-  players: {
-    online: number
-    max: number
-    onlinePlayers: ServerStatusPlayer[]
-  }
-  description: {
-    text: string
-  }
+  players: ServerStatusPlayer[]
+  max: number
+  description: string
 }

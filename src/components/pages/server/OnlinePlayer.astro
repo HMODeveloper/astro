@@ -1,0 +1,110 @@
+---
+interface Props {
+  id: string
+}
+
+const { id } = Astro.props
+---
+
+<div
+  class="online-players"
+  data-online-players
+  data-server-id={id}
+  hidden
+>
+  <div class="player-title" data-online-players-title>在线玩家 (0)</div>
+  <div class="player-list" data-online-players-list></div>
+</div>
+
+<style>
+  .online-players {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .online-players[hidden] {
+    display: none;
+  }
+
+  .player-title {
+    font-size: var(--title-size);
+    font-weight: bold;
+    color: var(--text-light);
+  }
+
+  .online-players :global(.player-list) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .online-players :global(.player-item) {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: auto;
+  }
+
+  .online-players :global(.player-head) {
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    object-fit: cover;
+    border: none;
+  }
+
+  .online-players :global(.player-name) {
+    font-size: var(--font-size);
+    color: var(--text-light);
+    text-align: left;
+    word-break: keep-all;
+  }
+</style>
+
+<script>
+  import type { ServerStatusPlayer } from "@/scripts/server-status"
+  import { fetchServerStatus } from "@/scripts/server-status"
+
+  const AVATAR_ENDPOINT = "https://nmsr.nickac.dev/head"
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-online-players]")) {
+    const id = root.dataset.serverId
+    const list = root.querySelector<HTMLElement>("[data-online-players-list]")
+    const title = root.querySelector<HTMLElement>("[data-online-players-title]")
+
+    if (!id || !list || !title)
+      continue
+
+    fetchServerStatus(id)
+      .then((response) => {
+        const players = response.players
+        if (players.length === 0)
+          return
+
+        list.replaceChildren(...players.map(createPlayerItem))
+        title.textContent = `在线玩家 (${players.length})`
+        root.hidden = false
+      })
+      .catch(() => undefined)
+  }
+
+  function createPlayerItem(player: ServerStatusPlayer): HTMLElement {
+    const item = document.createElement("div")
+    item.className = "player-item"
+
+    const head = document.createElement("img")
+    head.className = "player-head"
+    head.src = `${AVATAR_ENDPOINT}/${player.name}`
+    head.alt = player.name
+
+    const name = document.createElement("span")
+    name.className = "player-name"
+    name.textContent = player.name
+
+    item.append(head, name)
+    return item
+  }
+</script>

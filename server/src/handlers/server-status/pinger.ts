@@ -12,7 +12,6 @@ const PUBLIC_RESOLVERS = ["223.5.5.5", "8.8.8.8"]
 export interface MinecraftPlayer {
   name: string
   uuid: string
-  avatar_url: string
 }
 
 export interface MinecraftStatus {
@@ -21,7 +20,6 @@ export interface MinecraftStatus {
   port: number
   version: string
   motd: string
-  current_players: number
   max_players: number
   latency: number
   protocol_version: number
@@ -179,14 +177,12 @@ function parseStatus(data: Buffer, host: string, port: number, latency: number):
     port,
     version: payload?.version?.name ?? "N/A",
     motd: typeof description === "string" ? description : description?.text ?? "",
-    current_players: payload?.players?.online ?? 0,
     max_players: payload?.players?.max ?? 0,
     latency,
     protocol_version: payload?.version?.protocol ?? PROTOCOL_VERSION,
     players: sample.map((player: { name: string, id: string }) => ({
       name: player.name,
       uuid: player.id,
-      avatar_url: `https://nmsr.nickac.dev/head/${player.id}`,
     })),
   }
 }
@@ -256,7 +252,6 @@ function offlineStatus(host: string, port: number): MinecraftStatus {
     port,
     version: "N/A",
     motd: "Server is offline or unreachable.",
-    current_players: 0,
     max_players: 0,
     latency: 0,
     protocol_version: PROTOCOL_VERSION,

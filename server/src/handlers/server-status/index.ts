@@ -54,14 +54,9 @@ export async function serverStatus(context: EndpointContext<null, ServerStatusQu
             host: status.host,
             port: status.port,
             latency: status.latency,
-            players: {
-              online: status.current_players,
-              max: status.max_players,
-              onlinePlayers: status.players,
-            },
-            description: {
-              text: status.motd,
-            },
+            players: status.players,
+            max: status.max_players,
+            description: status.motd,
           }
         }
 

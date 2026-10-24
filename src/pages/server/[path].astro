@@ -2,6 +2,8 @@
 import { getCollection } from "astro:content"
 import Section from "@/components/base/Section.astro"
 import Markdown from "@/components/markdown/index.astro"
+import OnlinePlayer from "@/components/pages/server/OnlinePlayer.astro"
+import Status from "@/components/pages/server/Status.astro"
 import Layout from "@/layouts/Layout.astro"
 
 export async function getStaticPaths() {
@@ -13,6 +15,11 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props
+
+const hasAddress = entry.data.address != null
+  && (Array.isArray(entry.data.address) ? entry.data.address.length > 0 : true)
+
+const showServerStatus = !entry.data.end && hasAddress
 ---
 
 <Layout>
@@ -65,7 +72,10 @@ const { entry } = Astro.props
             )
         }
       </span>
+      {showServerStatus && <Status id={entry.id} />}
     </div>
+
+    {showServerStatus && <OnlinePlayer id={entry.id} />}
 
     <Markdown entry={entry} />
   </div>

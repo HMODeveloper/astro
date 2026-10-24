@@ -1,0 +1,72 @@
+---
+interface Props {
+  id: string
+}
+
+const { id } = Astro.props
+---
+
+<span
+  class="status"
+  data-server-status
+  data-server-id={id}
+  data-state="pending"
+>
+  服务器状态:
+  <i
+    class="fa-solid fa-spinner fa-spin"
+    data-server-status-icon
+  />
+  <span data-server-status-text>加载中...</span>
+</span>
+
+<style>
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size);
+    color: var(--text-light);
+  }
+
+  .status[data-state="pending"] i,
+  .status[data-state="pending"] [data-server-status-text] {
+    color: yellow;
+  }
+
+  .status[data-state="online"] i,
+  .status[data-state="online"] [data-server-status-text] {
+    color: green;
+  }
+
+  .status[data-state="offline"] i,
+  .status[data-state="offline"] [data-server-status-text] {
+    color: red;
+  }
+</style>
+
+<script>
+  import { fetchServerStatus } from "@/scripts/server-status"
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-server-status]")) {
+    const id = root.dataset.serverId
+    const icon = root.querySelector<HTMLElement>("[data-server-status-icon]")
+    const text = root.querySelector<HTMLElement>("[data-server-status-text]")
+
+    if (!id || !icon || !text)
+      continue
+
+    fetchServerStatus(id)
+      .then((response) => {
+        const { players, max } = response
+        root.dataset.state = "online"
+        icon.className = "fa-solid fa-circle-check"
+        text.textContent = `在线 (${players.length}/${max})`
+      })
+      .catch(() => {
+        root.dataset.state = "offline"
+        icon.className = "fa-solid fa-circle-xmark"
+        text.textContent = "离线"
+      })
+  }
+</script>
