@@ -31,9 +31,9 @@ try {
   const tag = `${prefix}${index}`
 
   git("tag", tag)
-  git("push", "origin", tag)
 
-  process.stdout.write(`${tag} pushed\n`)
+  process.stdout.write(`${tag} created\n`)
+  process.stdout.write(`push it: git push origin ${tag}\n`)
 }
 catch (error) {
   process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`)
