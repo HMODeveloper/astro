@@ -9,11 +9,13 @@ function titleOf(name: string) {
   return serverEntries.find(s => s.data.name === name)?.data.title ?? ""
 }
 
-const covers = coverList.map(item => ({
-  url: item.url,
-  title: titleOf(item.server),
-  description: item.description,
-}))
+const covers = coverList
+  .map(item => ({
+    url: item.url,
+    title: titleOf(item.server),
+    description: item.description,
+  }))
+  .sort(() => Math.random() - 0.5)
 ---
 
 <div class="cover-carousel" data-carousel-cover-carousel>
