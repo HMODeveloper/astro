@@ -20,6 +20,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.8",
+    "astro-remote": "^0.3.4",
     "modern-css-reset": "^1.4.0"
   },
   "devDependencies": {

@@ -77,7 +77,7 @@ const showServerStatus = !entry.data.end && hasAddress
 
     {showServerStatus && <OnlinePlayer id={entry.id} />}
 
-    <Markdown entry={entry} />
+    <Markdown content={entry.body} />
   </div>
 </Layout>
 

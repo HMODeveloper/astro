@@ -1,6 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content"
-import { render } from "astro:content"
+import { Markdown as Render } from "astro-remote"
 import A from "./A.astro"
 import Blockquote from "./Blockquote.astro"
 import Code from "./Code.astro"
@@ -23,14 +22,14 @@ import Tr from "./Tr.astro"
 import Ul from "./Ul.astro"
 
 interface Props {
-  entry: CollectionEntry<"dynamic"> | CollectionEntry<"server">
+  content?: string
 }
 
-const { entry } = Astro.props
-const { Content } = await render(entry)
+const { content } = Astro.props
 ---
 
-<Content
+<Render
+  content={content}
   components={{
     h1: H1,
     h2: H2,
