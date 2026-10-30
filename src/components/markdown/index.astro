@@ -28,7 +28,7 @@ interface Props {
 const { content } = Astro.props
 
 if (!content || content.trim() === "")
-  return
+  return null
 ---
 
 <Render
