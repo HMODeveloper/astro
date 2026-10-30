@@ -1,0 +1,17 @@
+site:
+  title: HMO-Minecraft 岳麓幻境社
+  description: "这里是湖南大学的 Minecraft 社团, 与湖南各高校共同构建 MC 高校圈! 本社团下辖 3 大常驻服务器并轮换各种整合包服务器, 满足湖大和各高校 MC 玩家的不同需求. 更有小游戏, 聚餐, 百团大战, 迎新活动等各类线上线下活动等你参与!"
+  hero:
+    title: HMO-Minecraft 岳麓幻境社
+    sublines:
+      - "在像素世界里, 用方块搭建"
+      - 岳麓山下的幻境
+    intros:
+      - "这里是湖南大学的 Minecraft 社团, 与湖南各高校共同构建 MC 高校圈!"
+      - "本社团下辖 3 大常驻服务器并轮换各种整合包服务器, 满足湖大和各高校 MC 玩家的不同需求."
+      - "更有小游戏, 聚餐, 百团大战, 迎新活动等各类线上线下活动等你参与!"
+  footer:
+    title: HMO-Minecraft 岳麓幻境社
+    start: 2025
+    author: 幻境社技术部
+    link: "https://github.com/HMODeveloper"

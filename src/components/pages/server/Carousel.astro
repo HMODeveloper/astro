@@ -2,8 +2,8 @@
 import { getCollection } from "astro:content"
 import ImagePreloader from "@/components/base/ImagePreloader.astro"
 
-const coverEntry = (await getCollection("cover"))[0]
-const coverList = coverEntry?.data.list ?? []
+const coverEntries = await getCollection("cover")
+const coverList = coverEntries.map(c => c.data)
 const serverEntries = await getCollection("server")
 function titleOf(name: string) {
   return serverEntries.find(s => s.data.name === name)?.data.title ?? ""

@@ -1,0 +1,72 @@
+origin_yuelu-academy:
+  url: /content/cover/origin_yuelu-academy.webp
+  server: origin
+  description: 岳麓书院
+origin_pagoda:
+  url: /content/cover/origin_pagoda.webp
+  server: origin
+  description: 庙塔一隅
+origin_chairman-mao:
+  url: /content/cover/origin_chairman-mao.webp
+  server: origin
+  description: 教员雕像
+origin_town:
+  url: /content/cover/origin_town.webp
+  server: origin
+  description: 古镇
+origin_sail:
+  url: /content/cover/origin_sail.webp
+  server: origin
+  description: 归帆残阳
+origin_activity-hall:
+  url: /content/cover/origin_activity-hall.webp
+  server: origin
+  description: 活动大厅
+classic_eva:
+  url: /content/cover/classic_eva.webp
+  server: classic
+  description: EVA
+classic_star-city:
+  url: /content/cover/classic_star-city.webp
+  server: classic
+  description: 繁星之城
+sd_mooncake-island:
+  url: /content/cover/sd_mooncake-island.webp
+  server: sd
+  description: 月饼岛
+sd_cyan-island:
+  url: /content/cover/sd_cyan-island.webp
+  server: sd
+  description: 倾岛温迪雕塑
+sd_new-hana:
+  url: /content/cover/sd_new-hana.webp
+  server: sd
+  description: 花名新村
+sd_line1:
+  url: /content/cover/sd_line1.webp
+  server: sd
+  description: 轨道交通一号线
+sd_line1-acacia:
+  url: /content/cover/sd_line1-acacia.webp
+  server: sd
+  description: 一号线合欢镇站
+sd_cake-castle:
+  url: /content/cover/sd_cake-castle.webp
+  server: sd
+  description: 符拉迪榭维列
+rebuild_intersection:
+  url: /content/cover/rebuild_intersection.webp
+  server: rebuild
+  description: 路口
+rebuild_red:
+  url: /content/cover/rebuild_red.webp
+  server: rebuild
+  description: 红楼
+rebuild_library:
+  url: /content/cover/rebuild_library.webp
+  server: rebuild
+  description: 图书馆
+cis_main:
+  url: /content/cover/cis_main.webp
+  server: cis
+  description: 工业区

@@ -1,4 +1,4 @@
-import { glob } from "astro/loaders"
+import { file, glob } from "astro/loaders"
 import { z } from "astro/zod"
 import { defineCollection } from "astro:content"
 
@@ -12,7 +12,7 @@ function createCover(description: string) {
 }
 
 const site = defineCollection({
-  loader: glob({ pattern: "site.md", base: "./src/content" }),
+  loader: file("src/content/site.yaml"),
   schema: z.object({
     title: z.string().describe("站点标题"),
     description: z.string().describe("站点描述"),
@@ -61,17 +61,11 @@ const server = defineCollection({
 })
 
 const cover = defineCollection({
-  loader: glob({ pattern: "cover.md", base: "./src/content" }),
+  loader: file("src/content/cover.yaml"),
   schema: z.object({
-    list: z
-      .array(
-        z.object({
-          url: z.string().describe("封面url"),
-          server: z.string().describe("所属服务器"),
-          description: z.string().describe("封面描述(位置等)"),
-        }),
-      )
-      .describe("服务器封面图集"),
+    url: z.string().describe("封面url"),
+    server: z.string().describe("所属服务器"),
+    description: z.string().describe("封面描述(位置等)"),
   }),
 })
 

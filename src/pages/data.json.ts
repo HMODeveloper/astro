@@ -14,8 +14,8 @@ async function formatContents(collection: Collection) {
 }
 
 async function formatCovers() {
-  const [cover] = await getCollection("cover")
-  return cover.data.list
+  const covers = await getCollection("cover")
+  return covers.map(c => c.data)
 }
 
 async function formatSite() {
